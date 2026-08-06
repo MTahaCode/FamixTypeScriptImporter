@@ -7,8 +7,8 @@ export class FamixJSONExporter {
 
     private element: FamixBaseElement; // A Famix element to export
     private bufferArray: any = {}; // A buffer to store the properties of the Famix element
-    private FamixPrefix = "FamixTypeScript"; // Prefix of the Famix element
-
+    private FamixPrefix = "Famix-TypeScript-Entities"; // Prefix of the Famix element
+    
     /**
      * Constructor of the FamixJSONExporter class
      * @param packageClass Name of a Famix class
