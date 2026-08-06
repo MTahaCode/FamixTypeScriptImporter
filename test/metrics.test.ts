@@ -57,17 +57,17 @@ describe('Metrics', () => {
     const parsedModel = JSON.parse(jsonOutput);
 
     it("should calculate cyclomatic complexity", () => {
-        let theMethod = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Method" && el.name === "methodCyclomaticOne"))[0];
+        let theMethod = parsedModel.filter(el => (el.FM3 === "Famix-TypeScript-Entities.Method" && el.name === "methodCyclomaticOne"))[0];
         expect(theMethod).toBeTruthy();
         expect(theMethod.cyclomaticComplexity).toBe(1);
-        theMethod = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Method" && el.name === "methodCyclomaticFour"))[0];
+        theMethod = parsedModel.filter(el => (el.FM3 === "Famix-TypeScript-Entities.Method" && el.name === "methodCyclomaticFour"))[0];
         expect(theMethod).toBeTruthy();
         expect(theMethod.cyclomaticComplexity).toBe(4);
 
-        let theFunction = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Function" && el.name === "functionCyclomaticOne"))[0];
+        let theFunction = parsedModel.filter(el => (el.FM3 === "Famix-TypeScript-Entities.Function" && el.name === "functionCyclomaticOne"))[0];
         expect(theFunction).toBeTruthy();
         expect(theFunction.cyclomaticComplexity).toBe(1);
-        theFunction = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Function" && el.name === "functionCyclomaticFour"))[0];
+        theFunction = parsedModel.filter(el => (el.FM3 === "Famix-TypeScript-Entities.Function" && el.name === "functionCyclomaticFour"))[0];
         expect(theFunction).toBeTruthy();
         expect(theFunction.cyclomaticComplexity).toBe(4);
     });

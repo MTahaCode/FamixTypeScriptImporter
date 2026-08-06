@@ -53,7 +53,7 @@ class ClassB<V> extends ClassA<string, V> {
 
 const fmxRep = importer.famixRepFromProject(project);
 
-describe('Tests for generics (from FamixTypeScript)', () => {
+describe('Tests for generics (from Famix-TypeScript-Entities)', () => {
 
     it("should parse", () => {
         expect(fmxRep).toBeTruthy();
