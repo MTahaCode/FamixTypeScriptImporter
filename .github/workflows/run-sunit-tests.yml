@@ -47,5 +47,7 @@ jobs:
         with:
           smalltalk-image: 'Moose64-13'
       - run: smalltalkci -s ${{ steps.smalltalkci.outputs.smalltalk-image }} .github/pharo-setup.smalltalk.ston
+        env:
+          MODEL_JSON_PATH: ${{ env.MODEL_JSON_PATH }}
         shell: bash
         timeout-minutes: 15
