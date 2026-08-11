@@ -910,6 +910,8 @@ export class EntityDictionary {
         fmxEntityTyping.typedEntity = entity;
         fmxEntityTyping.declaredType = type;
 
+        entity.typing = fmxEntityTyping;
+
         this.famixRep.addElement(fmxEntityTyping);
 
         return fmxEntityTyping;

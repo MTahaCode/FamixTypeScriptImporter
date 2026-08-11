@@ -3,6 +3,7 @@ import { ContainerEntity } from "./container_entity";
 import { Parameter } from "./parameter";
 import { Invocation } from "./invocation";
 import { ParameterType } from "./parameter_type";
+import { EntityTyping } from "./entity_typing";
 
 export class BehavioralEntity extends ContainerEntity {
 
@@ -27,6 +28,7 @@ export class BehavioralEntity extends ContainerEntity {
     }
 
     // private _declaredType!: Type;
+    private _typing!: EntityTyping;
     private _genericParameters: Set<ParameterType> = new Set();
 
     public addGenericParameter(genericParameter: ParameterType): void {
@@ -89,6 +91,14 @@ export class BehavioralEntity extends ContainerEntity {
     //     this._declaredType = declaredType;
     //     declaredType.addBehavioralEntityWithDeclaredType(this);
     // }
+
+    get typing(): EntityTyping {
+        return this._typing;
+    }
+
+    set typing(typing: EntityTyping) {
+        this._typing = typing;
+    }
 
     get genericParameters(): Set<ParameterType> {
         return this._genericParameters;

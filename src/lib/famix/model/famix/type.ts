@@ -19,21 +19,21 @@ export class Type extends ContainerEntity {
 
     private _structuresWithDeclaredType: Set<StructuralEntity> = new Set();
 
-    public addStructureWithDeclaredType(structureWithDeclaredType: StructuralEntity): void {
-        if (!this._structuresWithDeclaredType.has(structureWithDeclaredType)) {
-            this._structuresWithDeclaredType.add(structureWithDeclaredType);
-            structureWithDeclaredType.declaredType = this;
-        }
-    }
+    // public addStructureWithDeclaredType(structureWithDeclaredType: StructuralEntity): void {
+    //     if (!this._structuresWithDeclaredType.has(structureWithDeclaredType)) {
+    //         this._structuresWithDeclaredType.add(structureWithDeclaredType);
+    //         structureWithDeclaredType.declaredType = this;
+    //     }
+    // }
 
     private _behavioralEntitiesWithDeclaredType: Set<BehavioralEntity> = new Set();
 
-    public addBehavioralEntityWithDeclaredType(behavioralEntityWithDeclaredType: BehavioralEntity): void {
-        if (!this._behavioralEntitiesWithDeclaredType.has(behavioralEntityWithDeclaredType)) {
-            this._behavioralEntitiesWithDeclaredType.add(behavioralEntityWithDeclaredType);
-            behavioralEntityWithDeclaredType.declaredType = this;
-        }
-    }
+    // public addBehavioralEntityWithDeclaredType(behavioralEntityWithDeclaredType: BehavioralEntity): void {
+    //     if (!this._behavioralEntitiesWithDeclaredType.has(behavioralEntityWithDeclaredType)) {
+    //         this._behavioralEntitiesWithDeclaredType.add(behavioralEntityWithDeclaredType);
+    //         behavioralEntityWithDeclaredType.declaredType = this;
+    //     }
+    // }
 
     private _incomingReferences: Set<Reference> = new Set();
 
