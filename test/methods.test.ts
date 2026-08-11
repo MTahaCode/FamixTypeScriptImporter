@@ -27,7 +27,7 @@ describe('Tests for methods', () => {
 
 
     it("should return void", () => {
-        expect(theMethod?.declaredType.name).toBe("void");
+        expect(theMethod?.typing?.declaredType.name).toBe("void");
     });
 
     it("should have no parameter", () => {

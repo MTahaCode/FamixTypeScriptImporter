@@ -41,7 +41,7 @@ describe('Tests for invocation', () => {
         const mList = Array.from(A?.methods as Set<Method>);
         const x = mList?.find(m => m.name === "x");
         expect(x).toBeTruthy();
-        expect(x?.declaredType.name).toBe("void");
+        expect(x?.typing?.declaredType.name).toBe("void");
         expect(x?.parameters.size).toBe(0);
     });
 
@@ -52,7 +52,7 @@ describe('Tests for invocation', () => {
         const mList = Array.from(B?.methods as Set<Method>);
         const y = mList?.find(m => m.name === "y");
         expect(y).toBeTruthy();
-        expect(y?.declaredType.name).toBe("void");
+        expect(y?.typing?.declaredType.name).toBe("void");
         expect(y?.parameters.size).toBe(0);
     });
 

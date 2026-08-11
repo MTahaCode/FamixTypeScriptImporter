@@ -25,7 +25,7 @@ describe('Tests for simple function', () => {
     });
 
     it("should return number", () => {
-        expect(theFunction?.declaredType.name).toBe("number");
+        expect(theFunction?.typing?.declaredType.name).toBe("number");
     });
 
     it("should have no parameter", () => {

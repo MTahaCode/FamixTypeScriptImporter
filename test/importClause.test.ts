@@ -140,7 +140,7 @@ describe('Tests for import clauses', () => {
         expect(importerModule).toBeTruthy();
         expect(importerModule?.outgoingImports).toBeTruthy();
         expect(importerModule?.outgoingImports?.size).toBe(1);
-        expect(importerModule?.outgoingImports?.values().next().value.importedEntity?.name).toBe("ExportedClass");
+        expect(importerModule?.outgoingImports?.values().next().value?.importedEntity?.name).toBe("ExportedClass");
     });
 
     it("should contain one imports element for module oneClassExporter.ts", () => {
@@ -148,7 +148,7 @@ describe('Tests for import clauses', () => {
         expect(exportedEntity).toBeTruthy();
         expect(exportedEntity?.incomingImports).toBeTruthy();
         expect(exportedEntity?.incomingImports?.size).toBe(1);
-        expect(exportedEntity?.incomingImports?.values().next().value.importingEntity?.name).toBe("oneClassImporter.ts");
+        expect(exportedEntity?.incomingImports?.values().next().value?.importingEntity?.name).toBe("oneClassImporter.ts");
     });
 
     it("should have import clauses with source code anchors", () => {
@@ -175,7 +175,7 @@ describe('Tests for import clauses', () => {
         // expect the type of the importedEntity to be "StructuralEntity"
         expect((importClause?.importedEntity.constructor.name)).toBe("StructuralEntity");
         // expect the type of foo to be any
-        expect((importClause?.importedEntity as StructuralEntity).declaredType?.name).toBe("any");
+        expect((importClause?.importedEntity as StructuralEntity).typing?.declaredType?.name).toBe("any");
     });
 
 });
