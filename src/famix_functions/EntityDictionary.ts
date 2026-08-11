@@ -48,6 +48,7 @@ export class EntityDictionary {
     private UNKNOWN_VALUE = '(unknown due to parsing error)'; // The value to use when a name is not usable
     public fmxElementObjectMap = new Map<Famix.Entity,TSMorphObjectType>();
     public tsMorphElementObjectMap = new Map<TSMorphObjectType,Famix.Entity>();
+    public fmxEntityTypingMap = new Map<Famix.Entity, Famix.EntityTyping>();
             
     constructor() {
         this.famixRep.setFmxElementObjectMap(this.fmxElementObjectMap);      
@@ -499,7 +500,7 @@ export class EntityDictionary {
         }
 
         const fmxType = this.createOrGetFamixType(propTypeName, property.getType(), property);
-        fmxProperty.declaredType = fmxType;
+        // fmxProperty.declaredType = fmxType;
 
         // add the visibility (public, private, etc.) to the fmxProperty
         fmxProperty.visibility = "";
@@ -538,6 +539,8 @@ export class EntityDictionary {
 
         initFQN(property, fmxProperty);
         this.makeFamixIndexFileAnchor(property, fmxProperty);
+
+        this.createOrGetFamixEntityTyping(fmxProperty, fmxType);
 
         this.famixRep.addElement(fmxProperty);
 
@@ -615,7 +618,6 @@ export class EntityDictionary {
     
             const fmxType = this.createOrGetFamixType(methodTypeName, method.getType(), method);
             // console.log(`Created/retrieved return type with FQN: ${fmxType.fullyQualifiedName}`);
-            fmxMethod.declaredType = fmxType;
             fmxMethod.numberOfLinesOfCode = method.getEndLineNumber() - method.getStartLineNumber();
             fmxMethod.numberOfParameters = method.getParameters().length;
             fmxMethod.numberOfStatements = isSignature ? 0 : method.getStatements().length;
@@ -624,6 +626,9 @@ export class EntityDictionary {
             initFQN(method, fmxMethod);
             this.famixRep.addElement(fmxMethod);
             this.makeFamixIndexFileAnchor(method, fmxMethod);
+
+            this.createOrGetFamixEntityTyping(fmxMethod, fmxType);
+
             this.fmxFunctionAndMethodMap.set(fqn, fmxMethod);
             logger.debug(`Added method ${fqn} to famixRep`);
         } else {
@@ -673,13 +678,14 @@ export class EntityDictionary {
             }
     
             const fmxType = this.createOrGetFamixType(functionTypeName, func.getType(), func);
-            fmxFunction.declaredType = fmxType;
             fmxFunction.numberOfLinesOfCode = func.getEndLineNumber() - func.getStartLineNumber();
             const parameters = func.getParameters();
             fmxFunction.numberOfParameters = parameters.length;
             fmxFunction.numberOfStatements = func.getStatements().length;
             this.makeFamixIndexFileAnchor(func, fmxFunction);
     
+            this.createOrGetFamixEntityTyping(fmxFunction, fmxType);
+
             this.famixRep.addElement(fmxFunction);
     
             this.fmxElementObjectMap.set(fmxFunction,func);
@@ -718,11 +724,13 @@ export class EntityDictionary {
         }
 
         const fmxType = this.createOrGetFamixType(paramTypeName, param.getType(), param);
-        fmxParam.declaredType = fmxType;
+        // fmxParam.declaredType = fmxType;
         fmxParam.name = param.getName();
 
         initFQN(param, fmxParam);
         this.makeFamixIndexFileAnchor(param, fmxParam);
+
+        this.createOrGetFamixEntityTyping(fmxParam, fmxType);
 
         this.famixRep.addElement(fmxParam);
 
@@ -866,10 +874,11 @@ export class EntityDictionary {
         }
     
         const fmxType = this.createOrGetFamixType(variableTypeName, variable.getType(), variable);
-        fmxVariable.declaredType = fmxType;
         fmxVariable.name = variable.getName();
         initFQN(variable, fmxVariable);
         this.makeFamixIndexFileAnchor(variable, fmxVariable);
+
+        this.createOrGetFamixEntityTyping(fmxVariable, fmxType);
     
         this.famixRep.addElement(fmxVariable);
     
@@ -877,6 +886,33 @@ export class EntityDictionary {
         this.fmxVariableMap.set(variable, fmxVariable);
     
         return fmxVariable;
+    }
+
+    public createOrGetFamixEntityTyping(entity: Famix.BehavioralEntity | Famix.StructuralEntity, type: Famix.Type): Famix.EntityTyping {
+        if (this.fmxEntityTypingMap.has(entity)) {
+            const rEntityTyping = this.fmxEntityTypingMap.get(entity);
+            if (rEntityTyping) { 
+               return rEntityTyping;
+            } else {
+                throw new Error(`Famix entity typing for ${entity.name} is not found in the entity typing map.`);
+            }
+        }
+
+        let fmxEntityTyping: Famix.EntityTyping | Famix.ParametricEntityTyping = new Famix.EntityTyping();
+
+        if (entity instanceof Famix.ParametricArrowFunction 
+            || entity instanceof Famix.ParametricFunction
+            || entity instanceof Famix.ParametricMethod
+        ) {
+            fmxEntityTyping = new Famix.ParametricEntityTyping();
+        }
+
+        fmxEntityTyping.typedEntity = entity;
+        fmxEntityTyping.declaredType = type;
+
+        this.famixRep.addElement(fmxEntityTyping);
+
+        return fmxEntityTyping;
     }
 
     /**
@@ -922,10 +958,12 @@ export class EntityDictionary {
         }
 
         const fmxType = this.createOrGetFamixType(enumValueTypeName, enumMember.getType(), enumMember);
-        fmxEnumValue.declaredType = fmxType;
+        // fmxEnumValue.declaredType = fmxType;
         fmxEnumValue.name = enumMember.getName();
         initFQN(enumMember, fmxEnumValue);
         this.makeFamixIndexFileAnchor(enumMember, fmxEnumValue);
+        
+        this.createOrGetFamixEntityTyping(fmxEnumValue, fmxType);
 
         this.famixRep.addElement(fmxEnumValue);
 
@@ -1484,7 +1522,9 @@ export class EntityDictionary {
             logger.debug(`Assigned FQN to ImportEquals entity: ${importedEntity.fullyQualifiedName}`);
             this.makeFamixIndexFileAnchor(importElement, importedEntity);
             const anyType = this.createOrGetFamixType('any', undefined, importDeclaration);
-            (importedEntity as Famix.StructuralEntity).declaredType = anyType;
+            
+            // (importedEntity as Famix.StructuralEntity).declaredType = anyType;
+            this.createOrGetFamixEntityTyping(importedEntity as Famix.StructuralEntity, anyType);
         } else {  
             importedEntityName = importElement.getText();
             pathName = pathName + (isDefaultExport ? "defaultExport" : "namespaceExport");
@@ -1572,13 +1612,16 @@ export class EntityDictionary {
             }
 
             const fmxType = this.createOrGetFamixType(functionTypeName, arrowFunction.getReturnType(), arrowFunction as unknown as FunctionDeclaration);
-            fmxArrowFunction.declaredType = fmxType;
+            
             fmxArrowFunction.numberOfLinesOfCode = arrowFunction.getEndLineNumber() - arrowFunction.getStartLineNumber();
             const parameters = arrowFunction.getParameters();
             fmxArrowFunction.numberOfParameters = parameters.length;
             fmxArrowFunction.numberOfStatements = arrowFunction.getStatements().length;
             initFQN(arrowExpression as unknown as TSMorphObjectType, fmxArrowFunction);
             this.makeFamixIndexFileAnchor(arrowExpression as unknown as TSMorphObjectType, fmxArrowFunction);
+
+            this.createOrGetFamixEntityTyping(fmxArrowFunction, fmxType);
+
             this.famixRep.addElement(fmxArrowFunction);
             this.fmxElementObjectMap.set(fmxArrowFunction,arrowFunction as unknown as TSMorphObjectType);
             this.fmxFunctionAndMethodMap.set(functionFullyQualifiedName, fmxArrowFunction);
