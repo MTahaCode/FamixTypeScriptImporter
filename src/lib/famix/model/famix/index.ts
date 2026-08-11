@@ -39,3 +39,5 @@ export { ParametricMethod } from "./parametric_method";
 export { ArrowFunction } from "./arrow_function";
 export { ParametricArrowFunction } from "./parametric_arrow_function";
 export { ParameterConcretisation } from "./parameter_concretisation";
+export { EntityTyping } from "./entity_typing";
+export { ParametricEntityTyping } from "./parametric_entity_typing";

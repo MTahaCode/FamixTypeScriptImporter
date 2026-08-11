@@ -2,6 +2,8 @@ import { FamixJSONExporter } from "../../famix_JSON_exporter";
 import { Type } from "./type";
 import { Access } from "./access";
 import { NamedEntity } from "./named_entity";
+import { EntityTyping } from "./entity_typing";
+import { ParametricEntityTyping } from "./parametric_entity_typing";
 
 export class StructuralEntity extends NamedEntity {
 
@@ -14,7 +16,8 @@ export class StructuralEntity extends NamedEntity {
         }
     }
 
-    private _declaredType!: Type;
+    // private _declaredType!: Type;
+    private _typing!: EntityTyping | ParametricEntityTyping;
 
     public getJSON(): string {
         const json: FamixJSONExporter = new FamixJSONExporter("StructuralEntity", this);
@@ -25,19 +28,28 @@ export class StructuralEntity extends NamedEntity {
     public addPropertiesToExporter(exporter: FamixJSONExporter): void {
         super.addPropertiesToExporter(exporter);
         exporter.addProperty("incomingAccesses", this.incomingAccesses);
-        exporter.addProperty("declaredType", this.declaredType);
+        exporter.addProperty("typing", this.typing);
+        // exporter.addProperty("declaredType", this.declaredType);
     }
 
     get incomingAccesses() {
         return this._incomingAccesses;
     }
 
-    get declaredType() {
-        return this._declaredType;
+    get typing() {
+        return this._typing;
     }
 
-    set declaredType(declaredType: Type) {
-        this._declaredType = declaredType;
-        declaredType.addStructureWithDeclaredType(this);
+    set typing(typing: EntityTyping | ParametricEntityTyping) {
+        this._typing = typing;
     }
+
+    // get declaredType() {
+    //     return this._declaredType;
+    // }
+
+    // set declaredType(declaredType: Type) {
+    //     this._declaredType = declaredType;
+    //     declaredType.addStructureWithDeclaredType(this);
+    // }
 }

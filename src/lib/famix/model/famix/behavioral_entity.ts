@@ -1,5 +1,4 @@
 import { FamixJSONExporter } from "../../famix_JSON_exporter";
-import { Type } from "./type";
 import { ContainerEntity } from "./container_entity";
 import { Parameter } from "./parameter";
 import { Invocation } from "./invocation";
@@ -27,7 +26,7 @@ export class BehavioralEntity extends ContainerEntity {
         }
     }
 
-    private _declaredType!: Type;
+    // private _declaredType!: Type;
     private _genericParameters: Set<ParameterType> = new Set();
 
     public addGenericParameter(genericParameter: ParameterType): void {
@@ -53,7 +52,7 @@ export class BehavioralEntity extends ContainerEntity {
         exporter.addProperty("parameters", this.parameters);
         exporter.addProperty("numberOfParameters", this.numberOfParameters);
         exporter.addProperty("incomingInvocations", this.incomingInvocations);
-        exporter.addProperty("declaredType", this.declaredType);
+        // exporter.addProperty("declaredType", this.declaredType);
         /* don't add the property here, since it doesn't apply to all subclasses */
         //    exporter.addProperty("genericParameters", this.getGenericParameters());
     }
@@ -82,14 +81,14 @@ export class BehavioralEntity extends ContainerEntity {
         return this._incomingInvocations;
     }
 
-    get declaredType(): Type {
-        return this._declaredType;
-    }
+    // get declaredType(): Type {
+    //     return this._declaredType;
+    // }
 
-    set declaredType(declaredType: Type) {
-        this._declaredType = declaredType;
-        declaredType.addBehavioralEntityWithDeclaredType(this);
-    }
+    // set declaredType(declaredType: Type) {
+    //     this._declaredType = declaredType;
+    //     declaredType.addBehavioralEntityWithDeclaredType(this);
+    // }
 
     get genericParameters(): Set<ParameterType> {
         return this._genericParameters;
