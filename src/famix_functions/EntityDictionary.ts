@@ -500,7 +500,6 @@ export class EntityDictionary {
         }
 
         const fmxType = this.createOrGetFamixType(propTypeName, property.getType(), property);
-        // fmxProperty.declaredType = fmxType;
 
         // add the visibility (public, private, etc.) to the fmxProperty
         fmxProperty.visibility = "";
@@ -724,7 +723,7 @@ export class EntityDictionary {
         }
 
         const fmxType = this.createOrGetFamixType(paramTypeName, param.getType(), param);
-        // fmxParam.declaredType = fmxType;
+
         fmxParam.name = param.getName();
 
         initFQN(param, fmxParam);
@@ -960,7 +959,7 @@ export class EntityDictionary {
         }
 
         const fmxType = this.createOrGetFamixType(enumValueTypeName, enumMember.getType(), enumMember);
-        // fmxEnumValue.declaredType = fmxType;
+
         fmxEnumValue.name = enumMember.getName();
         initFQN(enumMember, fmxEnumValue);
         this.makeFamixIndexFileAnchor(enumMember, fmxEnumValue);
@@ -1525,7 +1524,6 @@ export class EntityDictionary {
             this.makeFamixIndexFileAnchor(importElement, importedEntity);
             const anyType = this.createOrGetFamixType('any', undefined, importDeclaration);
             
-            // (importedEntity as Famix.StructuralEntity).declaredType = anyType;
             this.createOrGetFamixEntityTyping(importedEntity as Famix.StructuralEntity, anyType);
         } else {  
             importedEntityName = importElement.getText();

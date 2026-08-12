@@ -27,7 +27,6 @@ export class BehavioralEntity extends ContainerEntity {
         }
     }
 
-    // private _declaredType!: Type;
     private _typing!: EntityTyping;
     private _genericParameters: Set<ParameterType> = new Set();
 
@@ -54,9 +53,6 @@ export class BehavioralEntity extends ContainerEntity {
         exporter.addProperty("parameters", this.parameters);
         exporter.addProperty("numberOfParameters", this.numberOfParameters);
         exporter.addProperty("incomingInvocations", this.incomingInvocations);
-        // exporter.addProperty("declaredType", this.declaredType);
-        /* don't add the property here, since it doesn't apply to all subclasses */
-        //    exporter.addProperty("genericParameters", this.getGenericParameters());
     }
 
     get signature(): string {
@@ -82,15 +78,6 @@ export class BehavioralEntity extends ContainerEntity {
     get incomingInvocations(): Set<Invocation> {
         return this._incomingInvocations;
     }
-
-    // get declaredType(): Type {
-    //     return this._declaredType;
-    // }
-
-    // set declaredType(declaredType: Type) {
-    //     this._declaredType = declaredType;
-    //     declaredType.addBehavioralEntityWithDeclaredType(this);
-    // }
 
     get typing(): EntityTyping {
         return this._typing;

@@ -16,7 +16,6 @@ export class StructuralEntity extends NamedEntity {
         }
     }
 
-    // private _declaredType!: Type;
     private _typing!: EntityTyping | ParametricEntityTyping;
 
     public getJSON(): string {
@@ -29,7 +28,6 @@ export class StructuralEntity extends NamedEntity {
         super.addPropertiesToExporter(exporter);
         exporter.addProperty("incomingAccesses", this.incomingAccesses);
         exporter.addProperty("typing", this.typing);
-        // exporter.addProperty("declaredType", this.declaredType);
     }
 
     get incomingAccesses() {
@@ -43,13 +41,4 @@ export class StructuralEntity extends NamedEntity {
     set typing(typing: EntityTyping | ParametricEntityTyping) {
         this._typing = typing;
     }
-
-    // get declaredType() {
-    //     return this._declaredType;
-    // }
-
-    // set declaredType(declaredType: Type) {
-    //     this._declaredType = declaredType;
-    //     declaredType.addStructureWithDeclaredType(this);
-    // }
 }
