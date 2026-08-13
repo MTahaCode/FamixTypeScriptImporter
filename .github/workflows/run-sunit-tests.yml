@@ -2,9 +2,9 @@ name: Pharo/Moose Tests
 
 on:
   push:
-    branches: [ master, pharo-tests-ci, update-for-moose13 ]
+    branches: [ master, update-for-moose13 ]
   pull_request:
-    branches: [ master, pharo-tests-ci, update-for-moose13 ]
+    branches: [ master, update-for-moose13 ]
 
 jobs:
   test:
@@ -40,12 +40,12 @@ jobs:
 
           npx ts2famix -i $GITHUB_WORKSPACE/.github/ImporterSampleProject/tsconfig.json -o ${{ env.MODEL_JSON_PATH }}
 
-      # 5. Set up smalltalk-ci and run the tests using Moose 12
-      - name: Setup SmalltalkCI 
+      # 5. Set up smalltalk-ci and run the tests using Moose 13
+      - name: Setup SmalltalkCI
         uses: hpi-swa/setup-smalltalkCI@v1
         id: smalltalkci
         with:
-          smalltalk-image: 'Moose64-12'
+          smalltalk-image: 'Moose64-13'
 
       - name: Run Pharo/Moose Tests
         run: |
