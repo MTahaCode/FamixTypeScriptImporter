@@ -1,6 +1,6 @@
 import { Importer } from '../src/analyze';
 import { Method, Function, ParametricClass, ParametricMethod, ArrowFunction, ParametricFunction, ParametricArrowFunction, Parameter } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, FamixPrefix } from './testUtils';
 
 const importer = new Importer();
 
@@ -53,7 +53,7 @@ class ClassB<V> extends ClassA<string, V> {
 
 const fmxRep = importer.famixRepFromProject(project);
 
-describe('Tests for generics (from FamixTypeScript)', () => {
+describe(`Tests for generics (from ${FamixPrefix})`, () => {
 
     it("should parse", () => {
         expect(fmxRep).toBeTruthy();
@@ -101,7 +101,7 @@ describe('Tests for generics (from FamixTypeScript)', () => {
         const parameter = parametricMethod.parameters.values().next().value as Parameter;
         expect(parameter).toBeTruthy();
         expect(parameter.name).toBe("t");
-        expect(parameter.declaredType.name).toBe("T");
+        expect(parameter.typing?.declaredType.name).toBe("T");
     });
 
     let parametricFunction : ParametricFunction;
@@ -122,7 +122,7 @@ describe('Tests for generics (from FamixTypeScript)', () => {
         const parameter = parametricFunction.parameters.values().next().value as Parameter;
         expect(parameter).toBeTruthy();
         expect(parameter.name).toBe("t");
-        expect(parameter.declaredType.name).toBe("T");
+        expect(parameter.typing?.declaredType.name).toBe("T");
     });
 
     let parametricArrowFunction: ParametricArrowFunction;
@@ -143,6 +143,6 @@ describe('Tests for generics (from FamixTypeScript)', () => {
         const parameter = parametricArrowFunction.parameters.values().next().value as Parameter;
         expect(parameter).toBeTruthy();
         expect(parameter.name).toBe("t");
-        expect(parameter.declaredType.name).toBe("T");
+        expect(parameter.typing?.declaredType.name).toBe("T");
     });
 });

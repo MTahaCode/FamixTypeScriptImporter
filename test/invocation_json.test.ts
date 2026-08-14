@@ -1,5 +1,5 @@
 import { Importer } from '../src/analyze';
-import { project } from './testUtils';
+import { project, FamixPrefix } from './testUtils';
 
 const importer = new Importer();
 
@@ -30,7 +30,7 @@ describe('Invocations json', () => {
     const parsedModel = JSON.parse(jsonOutput);
 
     it("should contain a class Class3 with one method: getString", () => {
-        const invocationCls = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Class" && el.name === "Class3"))[0];
+        const invocationCls = parsedModel.filter(el => (el.FM3 === `${FamixPrefix}.Class` && el.name === "Class3"))[0];
         expect(invocationCls.methods.length).toBe(1);
         const methodNames: Array<string> = ['getString'];
         const invocationClsMethods = parsedModel.filter(e => invocationCls.methods.some(m => m.ref === e.id));
@@ -50,7 +50,7 @@ describe('Invocations json', () => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function verifyInvocation(parsedModel: any, theClass: string, theMethod: string) {
-    const invocationCls = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Class" && el.name === theClass))[0];
+    const invocationCls = parsedModel.filter(el => (el.FM3 === `${FamixPrefix}.Class` && el.name === theClass))[0];
     const invocationClsMethods = parsedModel.filter(e => invocationCls.methods.some(m => m.ref === e.id));
     const methodNames: Array<string> = [theMethod];
     invocationClsMethods.forEach(m => expect(methodNames).toContain(m.name));
@@ -59,7 +59,7 @@ function verifyInvocation(parsedModel: any, theClass: string, theMethod: string)
     const checkMethodHasInvocation = foundMethods.every(m => m.incomingInvocations !== undefined);
     expect(checkMethodHasInvocation).toBe(true);
     invocationClsMethods.forEach(method => {
-        const invocationCls = parsedModel.filter(e => e.FM3 === "FamixTypeScript.Invocation"
+        const invocationCls = parsedModel.filter(e => e.FM3 === `${FamixPrefix}.Invocation`
             && method.incomingInvocations.some(m => m.ref === e.id));
         const checkHasRelatedToMethod = invocationCls.every(a => a.candidates.length && a.candidates[0].ref === method.id);
         expect(checkHasRelatedToMethod).toBe(true);

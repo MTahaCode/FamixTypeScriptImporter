@@ -19,21 +19,7 @@ export class Type extends ContainerEntity {
 
     private _structuresWithDeclaredType: Set<StructuralEntity> = new Set();
 
-    public addStructureWithDeclaredType(structureWithDeclaredType: StructuralEntity): void {
-        if (!this._structuresWithDeclaredType.has(structureWithDeclaredType)) {
-            this._structuresWithDeclaredType.add(structureWithDeclaredType);
-            structureWithDeclaredType.declaredType = this;
-        }
-    }
-
     private _behavioralEntitiesWithDeclaredType: Set<BehavioralEntity> = new Set();
-
-    public addBehavioralEntityWithDeclaredType(behavioralEntityWithDeclaredType: BehavioralEntity): void {
-        if (!this._behavioralEntitiesWithDeclaredType.has(behavioralEntityWithDeclaredType)) {
-            this._behavioralEntitiesWithDeclaredType.add(behavioralEntityWithDeclaredType);
-            behavioralEntityWithDeclaredType.declaredType = this;
-        }
-    }
 
     private _incomingReferences: Set<Reference> = new Set();
 
@@ -55,8 +41,6 @@ export class Type extends ContainerEntity {
         exporter.addProperty("typeContainer", this.container);
         /* unsupported properties in MM so far */
         // exporter.addProperty("typeAliases", this.getTypeAliases());
-        // exporter.addProperty("structuresWithDeclaredType", this.getStructuresWithDeclaredType());
-        // exporter.addProperty("behavioralEntitiesWithDeclaredType", this.getBehavioralEntitiesWithDeclaredType());
         exporter.addProperty("incomingReferences", this.incomingReferences);
     }
 

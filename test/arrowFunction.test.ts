@@ -67,7 +67,7 @@ describe('ArrowFunctions', () => {
     it("should contain arrow function add and should return number should have two parameters", () => {
         const theFunction = fmxRep._getFamixFunction('{arrowFunctions.ts}.add.Unnamed_ArrowFunction(3:17)[ArrowFunction]');
         expect(theFunction).toBeTruthy();
-        expect(theFunction?.declaredType.name).toBe("number");
+        expect(theFunction?.typing?.declaredType.name).toBe("number");
         expect(theFunction?.signature).toBe("(a: number, b: number) => number");
         const params = theFunction?.parameters;
         expect(params).toBeTruthy();
@@ -78,18 +78,18 @@ describe('ArrowFunctions', () => {
         const firstParam = pIter?.next().value as Parameter;
         expect(firstParam).toBeTruthy();
         expect(firstParam.name).toBe("a");
-        expect(firstParam.declaredType.name).toBe("number");
+        expect(firstParam.typing?.declaredType.name).toBe("number");
         const secondParam = pIter?.next().value as Parameter;
         expect(secondParam).toBeTruthy();
         expect(secondParam.name).toBe("b");
-        expect(secondParam.declaredType.name).toBe("number");
+        expect(secondParam.typing?.declaredType.name).toBe("number");
     });
 
     it("should contain arrow function multiply with two parameters", () => {
         const theFunction = fmxRep._getFamixFunction('{arrowFunctions.ts}.multiply.Unnamed_ArrowFunction(6:22)[ArrowFunction]');
         expect(theFunction).toBeTruthy();
         expect(theFunction?.signature).toBe("(c: number, d: number) => number");
-        expect(theFunction?.declaredType.name).toBe("number");
+        expect(theFunction?.typing?.declaredType.name).toBe("number");
         const params = theFunction?.parameters;
         expect(params).toBeTruthy();
         expect(params?.size).toBe(2);
@@ -99,36 +99,36 @@ describe('ArrowFunctions', () => {
         const firstParam = pIter?.next().value as Parameter;
         expect(firstParam).toBeTruthy();
         expect(firstParam.name).toBe("c");
-        expect(firstParam.declaredType.name).toBe("number");
+        expect(firstParam.typing?.declaredType.name).toBe("number");
         const secondParam = pIter?.next().value as Parameter;
         expect(secondParam).toBeTruthy();
         expect(secondParam.name).toBe("d");
-        expect(secondParam.declaredType.name).toBe("number");
+        expect(secondParam.typing?.declaredType.name).toBe("number");
     });
 
     it("should contain arrow function greet with no parameters", () => {
         const theFunction = fmxRep._getFamixFunction('{arrowFunctions.ts}.greet.Unnamed_ArrowFunction(11:19)[ArrowFunction]');
         expect(theFunction).toBeTruthy();
-        expect(theFunction?.declaredType.name).toBe("void");
+        expect(theFunction?.typing?.declaredType.name).toBe("void");
         expect(theFunction?.parameters.size).toBe(0);
     });
 
     it("should contain arrow function square", () => {
         const theFunction = fmxRep._getFamixFunction('{arrowFunctions.ts}.square.Unnamed_ArrowFunction(16:20)[ArrowFunction]');
         expect(theFunction).toBeTruthy();
-        expect(theFunction?.declaredType.name).toBe("number");
+        expect(theFunction?.typing?.declaredType.name).toBe("number");
         expect(theFunction?.parameters.size).toBe(1);
         const pIter = theFunction?.parameters.values();
         expect(pIter).toBeTruthy();
         const p1 = pIter?.next().value as Parameter;
         expect(p1.name).toBe("x");
-        expect(p1.declaredType.name).toBe("number");
+        expect(p1.typing?.declaredType.name).toBe("number");
     });
 
     it("should contain an arrow function with a single parameter t", () => {
         const theFunction = fmxRep._getFamixFunction('{arrowFunctions.ts}.Unnamed_ArrowFunction(19:18)[ArrowFunction]');
         expect(theFunction).toBeTruthy();
-        expect(theFunction?.declaredType.name).toBe("void");
+        expect(theFunction?.typing?.declaredType.name).toBe("void");
         expect(theFunction?.signature).toBe("(t) => void");
         const params = theFunction?.parameters;
         expect(params).toBeTruthy();
@@ -139,7 +139,7 @@ describe('ArrowFunctions', () => {
         const firstParam = pIter?.next().value as Parameter;
         expect(firstParam).toBeTruthy();
         expect(firstParam.name).toBe("t");
-        expect(firstParam.declaredType.name).toBe("any");
+        expect(firstParam.typing?.declaredType.name).toBe("any");
     });
 
     it("should contain a class User inside an arrow function", () => {
@@ -151,7 +151,7 @@ describe('ArrowFunctions', () => {
     it("should contain an method toUserInfo inside a class User inside an arrow function", () => {
         const theMethod = fmxRep._getFamixMethod('{arrowFunctions.ts}.Unnamed_ArrowFunction(28:18).Block(28:23).User.toUserInfo[MethodDeclaration]');
         expect(theMethod).toBeTruthy();
-        expect(theMethod?.declaredType.name).toBe("string");
+        expect(theMethod?.typing?.declaredType.name).toBe("string");
         expect(theMethod?.parameters.size).toBe(0);
     });
 
@@ -164,7 +164,7 @@ describe('ArrowFunctions', () => {
     it("should contain a class User with function a", () => {
         const theFunction = fmxRep._getFamixFunction('{arrowFunctions.ts}.Unnamed_ArrowFunction(28:18).Block(28:23).a[FunctionDeclaration]');
         expect(theFunction).toBeTruthy();
-        expect(theFunction?.declaredType.name).toBe("void");
+        expect(theFunction?.typing?.declaredType.name).toBe("void");
         expect(theFunction?.parameters.size).toBe(0);
     }); 
 

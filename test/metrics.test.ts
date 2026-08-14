@@ -1,6 +1,7 @@
 import { Importer } from '../src/analyze';
 import * as fs from 'fs';
 import { Project } from 'ts-morph';
+import { FamixPrefix } from './testUtils';
 
 const importer = new Importer();
 const project = new Project(
@@ -57,17 +58,17 @@ describe('Metrics', () => {
     const parsedModel = JSON.parse(jsonOutput);
 
     it("should calculate cyclomatic complexity", () => {
-        let theMethod = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Method" && el.name === "methodCyclomaticOne"))[0];
+        let theMethod = parsedModel.filter(el => (el.FM3 === `${FamixPrefix}.Method` && el.name === "methodCyclomaticOne"))[0];
         expect(theMethod).toBeTruthy();
         expect(theMethod.cyclomaticComplexity).toBe(1);
-        theMethod = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Method" && el.name === "methodCyclomaticFour"))[0];
+        theMethod = parsedModel.filter(el => (el.FM3 === `${FamixPrefix}.Method` && el.name === "methodCyclomaticFour"))[0];
         expect(theMethod).toBeTruthy();
         expect(theMethod.cyclomaticComplexity).toBe(4);
 
-        let theFunction = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Function" && el.name === "functionCyclomaticOne"))[0];
+        let theFunction = parsedModel.filter(el => (el.FM3 === `${FamixPrefix}.Function` && el.name === "functionCyclomaticOne"))[0];
         expect(theFunction).toBeTruthy();
         expect(theFunction.cyclomaticComplexity).toBe(1);
-        theFunction = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Function" && el.name === "functionCyclomaticFour"))[0];
+        theFunction = parsedModel.filter(el => (el.FM3 === `${FamixPrefix}.Function` && el.name === "functionCyclomaticFour"))[0];
         expect(theFunction).toBeTruthy();
         expect(theFunction.cyclomaticComplexity).toBe(4);
     });

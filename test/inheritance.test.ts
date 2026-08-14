@@ -1,5 +1,5 @@
 import { Importer } from '../src/analyze';
-import { project } from './testUtils';
+import { project, FamixPrefix } from './testUtils';
 
 const importer = new Importer();
 
@@ -19,7 +19,7 @@ describe('Inheritance', () => {
     const idToElementMap = fmxRep._initMapFromModel(jsonOutput);    
 
     it("should contain a Fish class who has a superclass Animal", () => {
-        const fishCls = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Class" && el.name === "Fish"))[0];
+        const fishCls = parsedModel.filter(el => (el.FM3 === `${FamixPrefix}.Class` && el.name === "Fish"))[0];
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const superInheritance = idToElementMap.get(fishCls.superInheritances[0].ref) as any;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -27,7 +27,7 @@ describe('Inheritance', () => {
     });
 
     it("should contain an Animal class who has a subclass Fish", () => {
-        const animalCls = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Class" && el.name === "Animal"))[0];
+        const animalCls = parsedModel.filter(el => (el.FM3 === `${FamixPrefix}.Class` && el.name === "Animal"))[0];
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const subInheritance = idToElementMap.get(animalCls.subInheritances[0].ref) as any;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,16 +35,16 @@ describe('Inheritance', () => {
     });
     
     it("should contain a Flyable interface", () => {
-        const flyableInterface = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Interface" && el.name === "Flyable"))[0];
+        const flyableInterface = parsedModel.filter(el => (el.FM3 === `${FamixPrefix}.Interface` && el.name === "Flyable"))[0];
         expect(flyableInterface).toBeTruthy();
     });
     
     it("should contain a Bird class who has a superclass Animal and implements a Flyable interface", () => {
-        const animalCls = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Class" && el.name === "Animal"))[0];
+        const animalCls = parsedModel.filter(el => (el.FM3 === `${FamixPrefix}.Class` && el.name === "Animal"))[0];
         expect(animalCls).toBeTruthy();
-        const flyableInterface = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Interface" && el.name === "Flyable"))[0];
+        const flyableInterface = parsedModel.filter(el => (el.FM3 === `${FamixPrefix}.Interface` && el.name === "Flyable"))[0];
         expect(flyableInterface).toBeTruthy();
-        const birdCls = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Class" && el.name === "Bird"))[0];
+        const birdCls = parsedModel.filter(el => (el.FM3 === `${FamixPrefix}.Class` && el.name === "Bird"))[0];
         expect(birdCls).toBeTruthy();
         // extends Animal, implements Flyable
         const birdSuperInheritances = birdCls.superInheritances;

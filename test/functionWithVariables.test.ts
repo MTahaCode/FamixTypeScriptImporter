@@ -43,7 +43,7 @@ describe('Tests for function with variables', () => {
     });
 
     it("should be of type number", () => {
-        expect(firstVariable?.declaredType.name).toBe("number");
+        expect(firstVariable?.typing?.declaredType.name).toBe("number");
     });
 
     const secondVariable = Array.from(theFunction?.variables).find((p) => p.name === "j");
@@ -69,7 +69,7 @@ describe('Tests for function with variables', () => {
     });
     
     it("should be of type number", () => {
-        expect(secondVariable?.declaredType.name).toBe("number");
+        expect(secondVariable?.typing?.declaredType.name).toBe("number");
     });
 
     const thirdVariable = Array.from(theFunction?.variables).find((p) => p.name === "x");
@@ -79,6 +79,6 @@ describe('Tests for function with variables', () => {
     });
 
     it("should be of type string", () => {
-        expect(thirdVariable?.declaredType.name).toBe("string");
+        expect(thirdVariable?.typing?.declaredType.name).toBe("string");
     });
 });

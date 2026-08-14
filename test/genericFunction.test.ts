@@ -28,12 +28,12 @@ describe('Tests for generics', () => {
         expect(fList).toBeTruthy();
         const func =fList.find(f => f.name === "func");
         expect(func).toBeTruthy();
-        expect(func?.declaredType.name).toBe("T");
+        expect(func?.typing?.declaredType.name).toBe("T");
         expect(func?.parameters.size).toBe(1);
         const pList = Array.from(func?.parameters as Set<Parameter>);
         const arg = pList?.find(p => p.name === "arg");
         expect(arg).toBeTruthy();
-        expect(arg?.declaredType.name).toBe("T");
+        expect(arg?.typing?.declaredType.name).toBe("T");
     });
 
 });

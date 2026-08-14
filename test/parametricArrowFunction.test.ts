@@ -1,5 +1,5 @@
 import { Importer } from '../src/analyze';
-import { Parameter, ParametricArrowFunction } from '../src/lib/famix/model/famix';
+import { ParameterType, ParametricArrowFunction } from '../src/lib/famix/model/famix';
 import { project } from './testUtils';
 
 const importer = new Importer();
@@ -23,7 +23,7 @@ describe('ArrowFunctions', () => {
     const theFunction = functionList.values().next().value as ParametricArrowFunction;
     it("should contain arrow function arrayLength", () => {
         expect(theFunction).toBeTruthy();
-        expect(theFunction?.declaredType.name).toBe("number");
+        expect(theFunction?.typing?.declaredType.name).toBe("number");
         expect(theFunction?.fullyQualifiedName).toBe("{parametricArrowFunctions.ts}.arrayLength.Unnamed_ArrowFunction(2:25)[ArrowFunction]");
     });
 
@@ -32,7 +32,7 @@ describe('ArrowFunctions', () => {
     });
 
     it("should return number", () => {
-        expect(theFunction?.declaredType.name).toBe("number");
+        expect(theFunction?.typing?.declaredType.name).toBe("number");
     });
 
     it("should have one parameter", () => {
@@ -40,8 +40,8 @@ describe('ArrowFunctions', () => {
     });
 
     it("should contain a type parameter T", () => {
-        const parameter = theFunction?.genericParameters.values().next().value as Parameter;
-        expect(parameter.name).toBe('T');
+        const parameterType = theFunction?.genericParameters.values().next().value as ParameterType;
+        expect(parameterType.name).toBe('T');
     });
 
 });

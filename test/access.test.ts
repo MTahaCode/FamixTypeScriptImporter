@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { Property, Method } from "../src/lib/famix/model/famix";
-import { project } from './testUtils';
+import { project, FamixPrefix } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/access.ts",
+project.createSourceFile("./test_src/access.ts",
 `class AccessClassForTesting {
     private privateAttribute;
     public publicAttribute;
@@ -32,7 +32,7 @@ describe('Accesses', () => {
     it("should have a class with two methods and two attributes", () => {
         const expectedAttributeNames: Array<string> = ['privateAttribute', 'publicAttribute'];
         const expectedMethodNames: Array<string> = ['privateMethod', 'returnAccessName'];
-        testAccessClsFromJSON = parsedModel.filter(el => (el.FM3 === "FamixTypeScript.Class" && el.name === "AccessClassForTesting"))[0];
+        testAccessClsFromJSON = parsedModel.filter(el => (el.FM3 === `${FamixPrefix}.Class` && el.name === "AccessClassForTesting"))[0];
         // Note: the JSON (moose) info uses "attributes" (Java style name) rather than "properties" (TypeScript)
         expect(testAccessClsFromJSON.attributes.length).toBe(expectedAttributeNames.length);
         expect(testAccessClsFromJSON.methods.length).toBe(expectedMethodNames.length);
@@ -48,7 +48,7 @@ describe('Accesses', () => {
 
     it("should have an access to privateAttribute in privateMethod", () => {
         const famixAccess = parsedModel.filter(el =>
-            (el.accessor !== undefined && el.variable !== undefined && el.FM3 === "FamixTypeScript.Access"
+            (el.accessor !== undefined && el.variable !== undefined && el.FM3 === `${FamixPrefix}.Access`
                 && ((fmxRep.getFamixEntityById(el.accessor.ref) as Method).name === "privateMethod") 
                 && ((fmxRep.getFamixEntityById(el.variable.ref) as Property).name === "privateAttribute")
                 ))[0];
@@ -57,7 +57,7 @@ describe('Accesses', () => {
 
     it("should have an access to publicAttribute in returnAccessName", () => {
         const famixAccess = parsedModel.filter(el =>
-            (el.accessor !== undefined && el.variable !== undefined && el.FM3 === "FamixTypeScript.Access"
+            (el.accessor !== undefined && el.variable !== undefined && el.FM3 === `${FamixPrefix}.Access`
                 && ((fmxRep.getFamixEntityById(el.accessor.ref) as Method).name === "returnAccessName") 
                 && ((fmxRep.getFamixEntityById(el.variable.ref) as Property).name === "publicAttribute")
                 ))[0];
@@ -66,7 +66,7 @@ describe('Accesses', () => {
 
     it("should have only one access to privateAttribute in privateMethod", () => {
         const famixAccess = parsedModel.filter(el =>
-            (el.accessor !== undefined && el.variable !== undefined && el.FM3 === "FamixTypeScript.Access"
+            (el.accessor !== undefined && el.variable !== undefined && el.FM3 === `${FamixPrefix}.Access`
                 && ((fmxRep.getFamixEntityById(el.accessor.ref) as Method).name === "privateMethod") 
                 && ((fmxRep.getFamixEntityById(el.variable.ref) as Property).name === "privateAttribute")
                 ));
