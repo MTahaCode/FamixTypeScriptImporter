@@ -50,13 +50,6 @@ export class Importer {
         this.processEntities(this.project);
 
         const famixRep = entityDictionary.famixRep;
-        //        }
-        //        catch (error) {
-        // logger.error(`> ERROR: got exception ${error}. Exiting...`);
-        // logger.error(error.message);
-        // logger.error(error.stack);
-        // process.exit(1);
-        //        }
 
         return famixRep;
     }
