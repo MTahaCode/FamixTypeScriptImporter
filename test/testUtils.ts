@@ -11,6 +11,8 @@ export const project = new Project(
     }
 );
 
+export const FamixPrefix = "Famix-TypeScript-Entities";
+
 function getIndexedFileAnchorFromComment(comment: Comment) {
     return comment?.sourceAnchor as IndexedFileAnchor;
 }
