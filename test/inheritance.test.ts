@@ -1,14 +1,16 @@
 import { Importer } from '../src/analyze';
-import { project, FamixPrefix } from './testUtils';
+import { project, FamixPrefix, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/inheritance.ts",
+project.createSourceFile("inheritance.ts",
 `class Animal {}
 class Fish extends Animal {}
 interface Flyable {}
 class Bird extends Animal implements Flyable {}
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

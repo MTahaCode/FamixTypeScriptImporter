@@ -3,22 +3,10 @@ import { getFQN } from '../src/fqn';
 import { Importer } from '../src/analyze'; 
 import * as Famix from '../src/lib/famix/model/famix'; 
 import { FamixRepository } from '../src/lib/famix/famix_repository';
+import { project, exportProjectSourceFiles } from './testUtils';
 
-const project = new Project({
-    compilerOptions: {
-        baseUrl: ""
-    },
-    useInMemoryFileSystem: true,
-});
-
-describe('Object Literal Index Signature FQN Generation', () => {
-    let sourceFile: ReturnType<Project['createSourceFile']>;
-    let importer: Importer;
-    let fmxRep: FamixRepository;
-
-    beforeAll(() => {
-        sourceFile = project.createSourceFile('/ObjectLiteralIndexSignatureFQN.ts', `
-            const key1 = Symbol('key1');
+const sourceFile = project.createSourceFile('/ObjectLiteralIndexSignatureFQN.ts', `
+    const key1 = Symbol('key1');
             const key2 = "varString";
             const key3 = 42;
             export const object1 = {
@@ -48,6 +36,13 @@ describe('Object Literal Index Signature FQN Generation', () => {
             };
         `);
 
+exportProjectSourceFiles(project, __filename);
+
+describe('Object Literal Index Signature FQN Generation', () => {
+    let importer: Importer;
+    let fmxRep: FamixRepository;
+    
+    beforeAll(() => {
         importer = new Importer();
         fmxRep = importer.famixRepFromProject(project);
     });

@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { ParametricInterface } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/concretisationInterfaceClass.ts",
+project.createSourceFile("concretisationInterfaceClass.ts",
 `
 interface InterfaceD<T> {
 }
@@ -12,6 +12,8 @@ interface InterfaceD<T> {
 class ClassG implements InterfaceD<number> {
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

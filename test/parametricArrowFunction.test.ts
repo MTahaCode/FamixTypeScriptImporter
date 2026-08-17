@@ -1,14 +1,16 @@
 import { Importer } from '../src/analyze';
 import { ParameterType, ParametricArrowFunction } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
-project.createSourceFile("/parametricArrowFunctions.ts",
+project.createSourceFile("parametricArrowFunctions.ts",
 `
     const arrayLength = <T>(arr: T[]): number => {
         return arr.length;
     };
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

@@ -1,11 +1,11 @@
 import { Importer } from '../src/analyze';
 import { Decorator } from '../src/lib/famix/model/famix/decorator';
 import { Parameter } from '../src/lib/famix/model/famix/parameter';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/parameterWithDecorators.ts",
+project.createSourceFile("parameterWithDecorators.ts",
 `function deco2(bo: boolean) {
     return function(target: Object, propertyKey: string, parameterIndex: number) {
         console.log(bo);
@@ -32,6 +32,8 @@ class BugReport2 {
     }
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

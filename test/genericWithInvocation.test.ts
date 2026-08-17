@@ -3,11 +3,11 @@ import { Method } from "../src/lib/famix/model/famix/method";
 import { Variable } from "../src/lib/famix/model/famix/variable";
 import { Invocation } from "../src/lib/famix/model/famix/invocation";
 import { Class } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/genericWithInvocation.ts",
+project.createSourceFile("genericWithInvocation.ts",
 `class AA {
     public i<T> (j: T): void {}
 }
@@ -15,6 +15,8 @@ project.createSourceFile("/genericWithInvocation.ts",
 const x = new AA();
 x.i<string>("ok");
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

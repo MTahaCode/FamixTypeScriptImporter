@@ -1,12 +1,14 @@
 import { Importer } from '../src/analyze';
 import { Parameter } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
-project.createSourceFile("/listParameter.ts",
+project.createSourceFile("listParameter.ts",
 `function testMethod(list: Array<any>): Array<any> {
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

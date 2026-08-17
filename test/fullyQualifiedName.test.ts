@@ -1,22 +1,8 @@
-import { Block, Project, ReturnStatement, SyntaxKind } from 'ts-morph';
+import { Block, ReturnStatement, SyntaxKind } from 'ts-morph';
 import { getFQN } from '../src/fqn';
+import { project, exportProjectSourceFiles } from './testUtils';
 
-const project = new Project(
-    {
-        compilerOptions: {
-            baseUrl: ""
-        },
-        useInMemoryFileSystem: true,
-    }
-);
-
-describe('fullyQualifiedName functionality', () => {
-    let sourceFile: ReturnType<Project['createSourceFile']>;
-
-    beforeAll(() => {
-
-        // Step 2: Add a source file to the project
-        sourceFile = project.createSourceFile('/sampleFile.ts', `
+const sourceFile = project.createSourceFile('/sampleFile.ts', `
             const createClassA1 = () => {
                 return class A {
                     method1() {}
@@ -30,7 +16,10 @@ describe('fullyQualifiedName functionality', () => {
             const instance1 = createClassA1();
             const instance2 = createClassA2();
         `);
-    });
+
+exportProjectSourceFiles(project, __filename);
+
+describe('fullyQualifiedName functionality', () => {
 
     test('should generate fully qualified name for createClassA1', () => {
         // Find the variable declaration for createClassA1

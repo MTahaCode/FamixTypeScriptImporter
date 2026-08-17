@@ -1,14 +1,16 @@
 import { Importer } from '../src/analyze';
 import { Method } from "../src/lib/famix/model/famix/method";
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/methods.ts",
+project.createSourceFile("methods.ts",
 `class AAA {
     public method(): void {}
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { Concretisation, ParameterConcretisation, ParametricClass } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/concretisationClassSpecialization.ts",
+project.createSourceFile("concretisationClassSpecialization.ts",
 `class ClassA<T> {
 }
 
@@ -23,6 +23,8 @@ class ClassE<T> {
 class ClassF extends ClassE<string> {
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

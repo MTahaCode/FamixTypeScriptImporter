@@ -2,14 +2,16 @@ import { Importer } from '../src/analyze';
 import { Access } from '../src/lib/famix/model/famix/access';
 import { ScriptEntity } from '../src/lib/famix/model/famix/script_entity';
 import { Variable } from '../src/lib/famix/model/famix/variable';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
-project.createSourceFile("/simpleTest2.ts",
+project.createSourceFile("simpleTest2.ts",
 `var a: number = 10;
     
 console.log(a);
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

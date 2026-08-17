@@ -1,7 +1,7 @@
 import { Importer } from '../src/analyze';
 import { Class } from '../src/lib/famix/model/famix/class';
 import { Interface } from '../src/lib/famix/model/famix/interface';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
@@ -10,6 +10,8 @@ project.createSourceFile("/classImplementsUndefinedInterface.ts",
 
 class MyClass implements FileSystemHost {}
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

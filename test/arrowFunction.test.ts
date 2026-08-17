@@ -1,11 +1,11 @@
 import { Importer } from '../src/analyze';
 import { Enum, Parameter } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 // logger.settings.minLevel = 0; // all your messages are belong to us
 
-project.createSourceFile("arrowFunctions.ts",
+project.createSourceFile("/arrowFunctions.ts",
 `
     // Basic arrow function
     const add = (a: number, b: number): number => a + b;
@@ -52,6 +52,8 @@ project.createSourceFile("arrowFunctions.ts",
     });
 
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

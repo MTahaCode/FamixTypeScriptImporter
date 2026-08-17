@@ -1,17 +1,8 @@
 import { Importer } from '../src/analyze';
 import * as fs from 'fs';
-import { Project } from 'ts-morph';
-import { FamixPrefix } from './testUtils';
+import { FamixPrefix, project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
-const project = new Project(
-    {
-        compilerOptions: {
-            baseUrl: "./test_src"
-        },
-        useInMemoryFileSystem: false, // cyclomatic complexity is calculated on disk
-    }
-);
 
 // Note: metrics test is tricky because we must create the file on disk
 
@@ -47,6 +38,8 @@ function functionCyclomaticFour() {
     }
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 sourceFile.saveSync(); // save file to disk so metrics are calculated (this is slower)
 

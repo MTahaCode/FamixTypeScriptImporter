@@ -1,10 +1,10 @@
 import { Importer, logger } from '../src/analyze';
 import { Module } from '../src/lib/famix/model/famix/module';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/test_src/moduleBecauseExports.ts", `
+project.createSourceFile("test_src/moduleBecauseExports.ts", `
 class ClassZ {}
 class ClassY {}
 export class ClassX {}
@@ -17,7 +17,7 @@ export default class ClassW {}
 export namespace Nsp {}
 `);
 
-project.createSourceFile("/test_src/moduleBecauseImports.ts", `
+project.createSourceFile("test_src/moduleBecauseImports.ts", `
 import * as Famix from "../src/lib/famix/model/famix";
 import { ClassDeclaration, ConstructorDeclaration } from "ts-morph";
 import { Importer } from "../test_src/sampleForModule";
@@ -27,16 +27,18 @@ import { Nsp } from "../test_src/moduleBecauseExports";
 import * as express from "express";
 `);
     
-project.createSourceFile("/test_src/moduleImportFromFileWithExtension.ts", `
+project.createSourceFile("test_src/moduleImportFromFileWithExtension.ts", `
 import { ClassX } from "express.ts";
 import * as test from "./sampleForModule.ts";
 `);
 
-project.createSourceFile("/test_src/ambientModule.d.ts", `
+project.createSourceFile("test_src/ambientModule.d.ts", `
 declare module "module-a" {
     export class ClassA {}
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 logger.settings.minLevel = 0; // all your messages are belong to us
 

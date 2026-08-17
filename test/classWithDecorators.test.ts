@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { Decorator } from '../src/lib/famix/model/famix/decorator';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/classWithDecorators.ts",
+project.createSourceFile("classWithDecorators.ts",
 `function sealed(constructor: Function) { // function can't take other parameters with constructor
     Object.seal(constructor);
     Object.seal(constructor.prototype);
@@ -39,6 +39,8 @@ class BugReport {
     }
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

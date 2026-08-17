@@ -1,19 +1,21 @@
 import { Importer } from "../src/analyze";
 import { Variable, ImportClause } from "../src/lib/famix/model/famix";
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 //logger.settings.minLevel = 0; // all your messages are belong to us
 
-project.createSourceFile("/test_src/exporter1.ts",
+project.createSourceFile("test_src/exporter1.ts",
     `export const hasBigInt = typeof BigInt !== 'undefined';
      export const yellow = 3;`);
 
-project.createSourceFile("/test_src/exporter2.ts",
+project.createSourceFile("test_src/exporter2.ts",
     `export const hasBigInt = false;`);
 
-project.createSourceFile("/test_src/importer.ts",
+project.createSourceFile("test_src/importer.ts",
     `import { hasBigInt } from "./exporter2";`);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

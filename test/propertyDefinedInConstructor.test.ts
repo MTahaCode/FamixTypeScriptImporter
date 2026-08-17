@@ -1,12 +1,14 @@
 import { Importer } from '../src/analyze';
 import { Property } from '../src/lib/famix/model/famix/property';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
-project.createSourceFile("/propertyDefinedInConstructorSignature.ts",
+project.createSourceFile("propertyDefinedInConstructorSignature.ts",
 `class Point {
   constructor(private x: number, public readonly y: number, protected z: number) {}
 }`);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

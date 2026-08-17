@@ -1,12 +1,14 @@
 import { Importer } from '../src/analyze';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/functions.ts",
+project.createSourceFile("functions.ts",
 `function a() {}
 function b() {}
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

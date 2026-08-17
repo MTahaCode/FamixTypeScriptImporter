@@ -2,7 +2,7 @@ import { Importer } from '../src/analyze';
 import { Class } from '../src/lib/famix/model/famix/class';
 import { Comment } from '../src/lib/famix/model/famix/comment';
 import { getCommentTextFromCommentViaAnchor } from './testUtils';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
@@ -14,6 +14,8 @@ abstract class MyAbstractClass {} // a comment
  * test2
  */
 function tst() {}`);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

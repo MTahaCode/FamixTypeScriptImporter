@@ -1,9 +1,9 @@
 import { Importer } from '../src/analyze';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/namespaces.ts", 
+project.createSourceFile("namespaces.ts", 
 `namespace MyNamespace {}
 
 module MyModule {}
@@ -25,6 +25,8 @@ export namespace ToolbarConstants {
         };
   }
 }`);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

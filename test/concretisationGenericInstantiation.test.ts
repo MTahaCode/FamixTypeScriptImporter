@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { Concretisation, ParametricClass } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/concretisationGenericInstantiation.ts",
+project.createSourceFile("concretisationGenericInstantiation.ts",
 `
 class ClassA<T> {
     property: T;
@@ -16,6 +16,8 @@ class ClassA<T> {
 
 const instance = new ClassA<number>(42);
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

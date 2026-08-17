@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { Concretisation, ParametricFunction, ParametricMethod } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/src/concretisationFunctionInstantiation.ts",
+project.createSourceFile("src/concretisationFunctionInstantiation.ts",
 `
 interface CustomType {
     message: string;
@@ -26,6 +26,8 @@ const processor = new Processor();
 
 const resultString = processor.process<string>("Hello, world!");
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

@@ -2,17 +2,20 @@ import { Importer } from '../src/analyze';
 import { Alias, IndexedFileAnchor } from '../src/lib/famix/model/famix';
 import { Type } from '../src/lib/famix/model/famix';
 import { getTextFromAnchor } from './testUtils';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/alias.ts", 
+project.createSourceFile("alias.ts",
 `type Point = {
     x: number;
     y: number;
 };
 type Text = string | { text: string };
 type Callback = (data: string) => void;`);
+
+exportProjectSourceFiles(project, __filename);
+
 const NUMBER_OF_ALIASES = 3;
 
 const fmxRep = importer.famixRepFromProject(project);

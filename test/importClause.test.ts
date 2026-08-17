@@ -1,17 +1,17 @@
 import { Importer } from "../src/analyze";
 import { Class, ImportClause, Module, NamedEntity, StructuralEntity } from "../src/lib/famix/model/famix";
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 //logger.settings.minLevel = 0; // all your messages are belong to us
 
-project.createSourceFile("/test_src/oneClassExporter.ts",
+project.createSourceFile("test_src/oneClassExporter.ts",
     `export class ExportedClass {}`);
 
-project.createSourceFile("/test_src/oneClassImporter.ts",
+project.createSourceFile("test_src/oneClassImporter.ts",
     `import { ExportedClass } from "./oneClassExporter";`);
 
-project.createSourceFile("/test_src/complexExportModule.ts",
+project.createSourceFile("test_src/complexExportModule.ts",
     `class ClassZ {}
 class ClassY {}
 export class ClassX {}
@@ -24,19 +24,19 @@ export default class ClassW {}
 export namespace Nsp {}
 `);
 
-project.createSourceFile("/test_src/defaultImporterModule.ts",
+project.createSourceFile("test_src/defaultImporterModule.ts",
     `import * as test from "./complexExportModule.ts";`);
 
-project.createSourceFile("/test_src/multipleClassImporterModule.ts",
+project.createSourceFile("test_src/multipleClassImporterModule.ts",
     `import { ClassZ } from "./complexExportModule.ts";`);
 
-project.createSourceFile("/test_src/reExporterModule.ts",
+project.createSourceFile("test_src/reExporterModule.ts",
     `export * from "./complexExportModule.ts";`);
 
-project.createSourceFile("/test_src/reImporterModule.ts",
+project.createSourceFile("test_src/reImporterModule.ts",
     `import { ClassX } from "./reExporterModule.ts";`);
 
-project.createSourceFile("/test_src/renameDefaultExportImporter.ts",
+project.createSourceFile("test_src/renameDefaultExportImporter.ts",
     `import myRenamedDefaultClassW from "./complexExportModule.ts";`);
 
 project.createSourceFile("lazyRequireModuleCommonJS.ts",
@@ -47,6 +47,8 @@ project.createSourceFile("lazyRequireModuleCommonJS.ts",
         var _foo: typeof foo = require('foo');
         // Now use "_foo" as a variable instead of "foo".
     }`); // see https://basarat.gitbook.io/typescript/project/modules/external-modules#use-case-lazy-loading
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 const NUMBER_OF_MODULES = 10,

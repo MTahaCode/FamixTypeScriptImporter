@@ -1,12 +1,14 @@
 import { Importer } from "../src/analyze";
 import { Variable } from "../src/lib/famix/model/famix";
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 //logger.settings.minLevel = 0; // all your messages are belong to us
 
-project.createSourceFile("/test_src/exporter1.ts",
+project.createSourceFile("test_src/exporter1.ts",
     `export const hasBigInt = false;`);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

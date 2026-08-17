@@ -1,15 +1,17 @@
 import { Importer } from '../src/analyze';
 import { Parameter } from "../src/lib/famix/model/famix/parameter";
 import { ParametricFunction } from '../src/lib/famix/model/famix';
-import { project } from "./testUtils";
+import { project, exportProjectSourceFiles } from "./testUtils";
 
 const importer = new Importer();
 
-project.createSourceFile("/genericMethod.ts",
+project.createSourceFile("genericMethod.ts",
 `function func<T>(arg: T): T {
     return arg;
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

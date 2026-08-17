@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { Function as FamixFunctionEntity } from "../src/lib/famix/model/famix/function";
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/functionsInMethod.ts",
+project.createSourceFile("functionsInMethod.ts",
 `class F {
     m() {
         function fct2() {
@@ -15,6 +15,8 @@ project.createSourceFile("/functionsInMethod.ts",
     }
 }
 `);
+    
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

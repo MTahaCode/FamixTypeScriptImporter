@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { Property, Method } from "../src/lib/famix/model/famix";
-import { project, FamixPrefix } from './testUtils';
+import { project, FamixPrefix, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("./test_src/access.ts",
+project.createSourceFile("test_src/access.ts",
 `class AccessClassForTesting {
     private privateAttribute;
     public publicAttribute;
@@ -18,6 +18,8 @@ project.createSourceFile("./test_src/access.ts",
         return this.privateAttribute;
     }
 }`);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

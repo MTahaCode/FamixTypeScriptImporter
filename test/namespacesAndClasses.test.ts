@@ -1,11 +1,11 @@
 import { Importer } from '../src/analyze';
 import { Type } from '../src/lib/famix/model/famix/type';
 import { Class } from '../src/lib/famix/model/famix/class';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/namespacesAndClasses.ts",
+project.createSourceFile("namespacesAndClasses.ts",
 `namespace MyNamespace {
 	class EntityClass {}
 	class class2 {}
@@ -18,6 +18,7 @@ namespace Nsp3 {
 }
 `);
 
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { Decorator } from '../src/lib/famix/model/famix/decorator';
 import { Property } from '../src/lib/famix/model/famix/property';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
-project.createSourceFile("/propertyWithDecorators.ts",
+project.createSourceFile("propertyWithDecorators.ts",
 `import "reflect-metadata";
 
 const formatMetadataKey = Symbol("format");
@@ -45,6 +45,8 @@ class Greeter {
     }
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

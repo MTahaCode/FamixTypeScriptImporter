@@ -1,11 +1,11 @@
 import { Importer, logger } from '../src/analyze';
 import { ParametricClass } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 logger.settings.minLevel = 0; // show all messages
 
-project.createSourceFile("/parametrizableClass.ts",
+project.createSourceFile("parametrizableClass.ts",
 `class ClassA<V> {}
 
 class ClassB extends ClassA<string>{}
@@ -36,6 +36,8 @@ interface JsonDecoratorOptions {
   _propertyKey?: string;
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

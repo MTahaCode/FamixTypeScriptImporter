@@ -1,11 +1,14 @@
 import { Importer } from "../src/analyze";
 import { SourceLanguage } from "../src/lib/famix/model/famix";
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/simple.ts",
+project.createSourceFile("simple.ts",
     `let a: number = 1;`);
+
+exportProjectSourceFiles(project, __filename);
+
 const fmxRep = importer.famixRepFromProject(project);
 
 describe('Tests for source language', () => {

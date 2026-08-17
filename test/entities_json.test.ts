@@ -1,16 +1,18 @@
 import { Importer } from '../src/analyze';
 import { Method } from '../src/lib/famix/model/famix';
-import { project, FamixPrefix } from './testUtils';
+import { project, FamixPrefix, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/entities_json.ts",
+project.createSourceFile("entities_json.ts",
 `class EntityClass {
     constructor() {}
     public move() {}
     private move2() {}
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

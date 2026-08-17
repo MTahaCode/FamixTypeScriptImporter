@@ -2,7 +2,7 @@ import { Importer } from '../src/analyze';
 import { Access } from '../src/lib/famix/model/famix/access';
 import { Parameter } from '../src/lib/famix/model/famix/parameter';
 import { Variable } from '../src/lib/famix/model/famix/variable';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
@@ -25,6 +25,8 @@ project.createSourceFile('/accesses2.ts',
     
 const x1 = new AAA();
 x1.method();`);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

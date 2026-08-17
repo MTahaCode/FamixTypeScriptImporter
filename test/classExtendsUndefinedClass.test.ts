@@ -1,14 +1,16 @@
 import { Importer } from '../src/analyze';
 import { Class } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/classExtendsUndefinedClass.ts",
+project.createSourceFile("classExtendsUndefinedClass.ts",
 `import {BaseClass} from "ts-morph";
 
 class MyClass extends BaseClass {}
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

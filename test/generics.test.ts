@@ -1,14 +1,16 @@
 import { Importer } from '../src/analyze';
 import { ParametricClass, ParametricInterface, ParameterType } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/generics.ts",
+project.createSourceFile("generics.ts",
 `interface MyDaoInterface<T> {}
 
 class MyDao<T> implements MyDaoInterface<T> {}
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

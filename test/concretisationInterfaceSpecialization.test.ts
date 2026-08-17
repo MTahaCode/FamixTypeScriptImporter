@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { Concretisation, ParameterConcretisation, ParametricInterface } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/concretisationInterfaceSpecialization.ts",
+project.createSourceFile("concretisationInterfaceSpecialization.ts",
 `
 interface InterfaceA<T> {
 }
@@ -27,6 +27,8 @@ interface InterfaceH extends InterfaceE<string> {
 interface InterfaceH extends InterfaceE<number> , InterfaceA<number> {
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

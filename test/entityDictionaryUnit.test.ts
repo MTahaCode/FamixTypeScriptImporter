@@ -1,8 +1,8 @@
 import { entityDictionary } from "../src/analyze";
 import * as Famix from "../src/lib/famix/model/famix";
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
-const sourceFile = project.createSourceFile("/entityDictionaryUnit.ts",
+const sourceFile = project.createSourceFile("entityDictionaryUnit.ts",
 `
 namespace MyNamespace {
     
@@ -23,6 +23,8 @@ namespace MyNamespace {
 
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 describe('EntityDictionary', () => {
 

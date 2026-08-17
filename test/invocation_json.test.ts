@@ -1,9 +1,9 @@
 import { Importer } from '../src/analyze';
-import { project, FamixPrefix } from './testUtils';
+import { project, FamixPrefix, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/invocation.ts",
+project.createSourceFile("invocation.ts",
 `class Class1 {
     public returnHi() {}
 }
@@ -21,6 +21,8 @@ class Class3 {
     }
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

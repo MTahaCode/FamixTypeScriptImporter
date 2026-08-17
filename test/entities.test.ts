@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { Method, Function as FamixFunctionEntity, Variable} from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/entities.ts",
+project.createSourceFile("entities.ts",
 `namespace MyNamespace {
     
     class EntityClass {
@@ -43,6 +43,8 @@ function globalFunc() {
 class Foo {};
 var someVar = Foo;
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 // const theEntityClass = fmxRep._getFamixClass("EntityClass");

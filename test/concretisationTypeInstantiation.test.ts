@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { Concretisation, ParametricInterface } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/concretisationTypeInstantiation.ts",
+project.createSourceFile("concretisationTypeInstantiation.ts",
 `
 interface InterfaceE<T> {
     (param: T): void;
@@ -19,6 +19,8 @@ function processInstance(instance: MyClass<boolean>): MyClass<boolean> {
     return instance;
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

@@ -2,11 +2,11 @@ import { Importer } from '../src/analyze';
 import { Class } from "../src/lib/famix/model/famix/class";
 import { Method } from "../src/lib/famix/model/famix/method";
 import { Invocation } from "../src/lib/famix/model/famix/invocation";
-import { project } from './testUtils';
+import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/invocation.ts",
+project.createSourceFile("invocation.ts",
 `class A {
     public x(): void {}
 }
@@ -17,6 +17,8 @@ class B {
     }
 }
 `);
+
+exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 
