@@ -2,7 +2,7 @@ name: Pharo/Moose Tests
 
 on:
   push:
-    branches: [ master, update-for-moose13 ]
+    branches: [ master, update-for-moose13, MTahaCode/issue99 ]
   pull_request:
     branches: [ master, update-for-moose13 ]
 
