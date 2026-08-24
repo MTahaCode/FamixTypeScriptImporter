@@ -1,10 +1,19 @@
 import { Importer } from '../src/analyze';
+import { Project } from "ts-morph";
 import * as fs from 'fs';
-import { FamixPrefix, project, exportProjectSourceFiles } from './testUtils';
+import { FamixPrefix, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
 // Note: metrics test is tricky because we must create the file on disk
+export const project = new Project(
+    {
+        compilerOptions: {
+            baseUrl: ""
+        },
+        useInMemoryFileSystem: false,
+    }
+);
 
 const sourcePath = "./test_src/metrics.ts";
 // remove file if it already exists
