@@ -15,7 +15,7 @@ abstract class MyAbstractClass {} // a comment
  */
 function tst() {}`);
 
-// exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 
