@@ -1,14 +1,16 @@
 import { Importer } from '../src/analyze';
 import { Function } from "../src/lib/famix/model/famix/function";
-import { project } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/functionWithParameters.ts",
+project.createSourceFile("functionWithParameters.ts",
 `function fct(i: number, x: string): number {
     return 0;
 }
 `);
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

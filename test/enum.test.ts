@@ -4,12 +4,12 @@ import { Enum } from '../src/lib/famix/model/famix/enum';
 import { ScriptEntity } from '../src/lib/famix/model/famix/script_entity';
 import { IndexedFileAnchor } from '../src/lib/famix/model/famix/indexed_file_anchor';
 import { getCommentTextFromCommentViaAnchor } from './testUtils';
-import { project } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 // logger.settings.minLevel = 0;   // see all messages in testing
 
-project.createSourceFile("/enum.ts",
+project.createSourceFile("enum.ts",
 `// comment before
 enum Weekday {
     // just another manic Monday
@@ -24,6 +24,8 @@ enum Weekday {
 
 const aDay: Weekday = Weekday.MONDAY;
 `);
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

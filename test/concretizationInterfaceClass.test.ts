@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { ParametricInterface } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/concretisationInterfaceClass.ts",
+project.createSourceFile("concretizationInterfaceClass.ts",
 `
 interface InterfaceD<T> {
 }
@@ -13,9 +13,11 @@ class ClassG implements InterfaceD<number> {
 }
 `);
 
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
+
 const fmxRep = importer.famixRepFromProject(project);
 
-describe('Tests for concretisation', () => {
+describe('Tests for concretization', () => {
 
     it("should parse generics", () => {
         expect(fmxRep).toBeTruthy();
@@ -33,12 +35,12 @@ describe('Tests for concretisation', () => {
         expect(numberOfInterfaceD).toBe(2); 
     });
 
-    it("should contain one concretisation", () => {
-        expect(fmxRep._getAllEntitiesWithType("Concretisation").size).toBe(1);
+    it("should contain one concretization", () => {
+        expect(fmxRep._getAllEntitiesWithType("Concretization").size).toBe(1);
     });
     
-    it.skip("should contain one parameter concretisation", () => {
-        expect(fmxRep._getAllEntitiesWithType("ParameterConcretisation").size).toBe(1);
+    it.skip("should contain one parameter concretization", () => {
+        expect(fmxRep._getAllEntitiesWithType("ParameterConcretization").size).toBe(1);
     });
 
 });

@@ -1,23 +1,8 @@
-import { Project, SyntaxKind } from 'ts-morph';
+import { SyntaxKind } from 'ts-morph';
 import { getFQN } from '../src/fqn';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
-describe('getFQN functionality', () => {
-    let project: Project;
-    let sourceFile: ReturnType<Project['createSourceFile']>;
-
-    beforeAll(() => {
-        // Step 1: Create a new ts-morph project
-        project = new Project(
-          {
-              compilerOptions: {
-                  baseUrl: ""
-              },
-              useInMemoryFileSystem: true,
-          }
-      );
-      
-        // Step 2: Add a source file to the project
-        sourceFile = project.createSourceFile('/sampleFile.ts', `
+const sourceFile = project.createSourceFile('/sampleFile.ts', `
       import { rest } from 'msw';
 
       class MyClass {
@@ -53,7 +38,10 @@ describe('getFQN functionality', () => {
         const resp = 2;
     });
 `);
-    });
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
+
+describe('getFQN functionality', () => {
 
     test('should generate unique FQN for MyClass', () => {
         // Find the first class declaration in the file

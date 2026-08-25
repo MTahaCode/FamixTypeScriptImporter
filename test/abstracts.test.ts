@@ -1,15 +1,17 @@
 import { Importer } from '../src/analyze';
 import { Method } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/abstracts.ts",
+project.createSourceFile("abstracts.ts",
 `abstract class MyAbstractClass {
     public abstract abstractMethod1();
     public abstract abstractMethod2();
     public concreteMethod() {}
 }`);
+    
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

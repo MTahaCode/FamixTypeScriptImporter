@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { ScriptEntity, Class, PrimitiveType, Method, Parameter, Comment, Access, Variable, Function } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/famixMorphObject.ts",
+project.createSourceFile("famixMorphObject.ts",
 `
 class Class1 {
     public returnHi(): string {
@@ -19,6 +19,8 @@ class Class1 {
 
 function a() {}
 `);
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

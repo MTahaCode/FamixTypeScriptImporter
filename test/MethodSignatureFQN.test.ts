@@ -1,23 +1,11 @@
-import { Project, SyntaxKind } from 'ts-morph';
+import { SyntaxKind } from 'ts-morph';
 import { getFQN } from '../src/fqn';
 import { Importer } from '../src/analyze';
 import { FamixRepository } from '../src/lib/famix/famix_repository';
 import * as Famix from "../src/lib/famix/model/famix";
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
-const project = new Project({
-    compilerOptions: {
-        baseUrl: ""
-    },
-    useInMemoryFileSystem: true,
-});
-
-describe('Method Signature FQN Generation with Return Type', () => {
-    let sourceFile: ReturnType<Project['createSourceFile']>;
-    let importer: Importer;
-    let fmxRep: FamixRepository;
-
-    beforeAll(() => {
-        sourceFile = project.createSourceFile('/SourceFile1.ts', `
+const sourceFile = project.createSourceFile('/SourceFile1.ts', `
             interface GenericType<T> {}
             interface Interface1 {
                 method1<TInput = any, TOutput = TInput>(
@@ -34,9 +22,12 @@ describe('Method Signature FQN Generation with Return Type', () => {
             }
         `);
 
-        importer = new Importer();
-        fmxRep = importer.famixRepFromProject(project);
-    });
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
+
+const importer = new Importer();
+const fmxRep: FamixRepository = importer.famixRepFromProject(project);
+
+describe('Method Signature FQN Generation with Return Type', () => {
 
     it('should parse the source file and generate Famix representation', () => {
         expect(fmxRep).toBeTruthy();

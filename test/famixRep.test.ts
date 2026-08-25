@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { Method, Function } from "../src/lib/famix/model/famix";
-import { project } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/fmxRep.ts",
+project.createSourceFile("fmxRep.ts",
 `class Class1 {
     public returnHi(): string {
         return "Hi";
@@ -15,6 +15,8 @@ project.createSourceFile("/fmxRep.ts",
         return () => (c.returnHi());
       }
 `);
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

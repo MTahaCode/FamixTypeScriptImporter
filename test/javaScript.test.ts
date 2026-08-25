@@ -1,10 +1,12 @@
 import { Importer } from '../src/analyze';
-import { project } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/javaScript.js",
+project.createSourceFile("avaScript.js",
 `class A {}`);
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

@@ -2,15 +2,17 @@ import { Importer } from '../src/analyze';
 import { Class } from "../src/lib/famix/model/famix/class";
 import { Parameter } from "../src/lib/famix/model/famix/parameter";
 import { ParametricMethod } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/genericMethod.ts",
+project.createSourceFile("genericMethod.ts",
 `class AA {
     public i<T> (j: T): void {}
 }
 `);
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

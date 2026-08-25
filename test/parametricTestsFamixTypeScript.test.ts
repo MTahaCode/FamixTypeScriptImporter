@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { Method, Function, ParametricClass, ParametricMethod, ArrowFunction, ParametricFunction, ParametricArrowFunction, Parameter } from '../src/lib/famix/model/famix';
-import { project, FamixPrefix } from './testUtils';
+import { project, FamixPrefix, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/parametricTests.ts",
+project.createSourceFile("parametricTests.ts",
 `
 class A {
     testMethod(list: Array<any>): Array<any>{ return []}
@@ -50,6 +50,8 @@ class ClassB<V> extends ClassA<string, V> {
 }
 
 `);
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

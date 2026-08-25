@@ -1,18 +1,20 @@
 import { Importer } from '../src/analyze';
 import { Class } from '../src/lib/famix/model/famix/class';
 import { Interface } from '../src/lib/famix/model/famix/interface';
-import { project } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/outsideInterface.ts",
+project.createSourceFile("outsideInterface.ts",
     `export interface MyInterface {}`);
 
-project.createSourceFile("/classImplementsUndefinedInterface.ts",
+project.createSourceFile("classImplementsUndefinedInterface.ts",
     `import { MyInterface } from "outsideInterface";
 
 class MyClass implements MyInterface {}
 `);
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

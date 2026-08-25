@@ -1,19 +1,19 @@
 import { Importer } from '../src/analyze';
+import { Project } from "ts-morph";
 import * as fs from 'fs';
-import { Project } from 'ts-morph';
-import { FamixPrefix } from './testUtils';
+import { FamixPrefix, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
-const project = new Project(
-    {
-        compilerOptions: {
-            baseUrl: "./test_src"
-        },
-        useInMemoryFileSystem: false, // cyclomatic complexity is calculated on disk
-    }
-);
 
 // Note: metrics test is tricky because we must create the file on disk
+export const project = new Project(
+    {
+        compilerOptions: {
+            baseUrl: ""
+        },
+        useInMemoryFileSystem: false,
+    }
+);
 
 const sourcePath = "./test_src/metrics.ts";
 // remove file if it already exists
@@ -47,6 +47,8 @@ function functionCyclomaticFour() {
     }
 }
 `);
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 sourceFile.saveSync(); // save file to disk so metrics are calculated (this is slower)
 

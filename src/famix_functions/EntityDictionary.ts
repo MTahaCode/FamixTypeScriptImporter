@@ -1633,78 +1633,78 @@ export class EntityDictionary {
     }
 
     /**
-     * Creates a Famix concretisation
+     * Creates a Famix concretization
      * @param cls A class
-     * @returns The Famix model of the concretisation
+     * @returns The Famix model of the concretization
      */
-    public createFamixConcretisation(conEntity : Famix.ParametricClass | Famix.ParametricInterface | Famix.ParametricFunction | Famix.ParametricMethod ,genEntity : Famix.ParametricClass | Famix.ParametricInterface | Famix.ParametricFunction | Famix.ParametricMethod): Famix.Concretisation {
+    public createFamixConcretization(conEntity : Famix.ParametricClass | Famix.ParametricInterface | Famix.ParametricFunction | Famix.ParametricMethod ,genEntity : Famix.ParametricClass | Famix.ParametricInterface | Famix.ParametricFunction | Famix.ParametricMethod): Famix.Concretization {
         
-        const fmxConcretisation : Famix.Concretisation = new Famix.Concretisation();              
+        const fmxConcretization : Famix.Concretization = new Famix.Concretization();              
         
-        fmxConcretisation.concreteEntity = conEntity;
-        fmxConcretisation.genericEntity = genEntity;
-        // this.fmxElementObjectMap.set(fmxConcretisation,null);
-        this.famixRep.addElement(fmxConcretisation);
-        // const parameterConcretisation = this.createFamixParameterConcretisation(fmxConcretisation);
+        fmxConcretization.concreteEntity = conEntity;
+        fmxConcretization.genericEntity = genEntity;
+        // this.fmxElementObjectMap.set(fmxConcretization,null);
+        this.famixRep.addElement(fmxConcretization);
+        // const parameterConcretization = this.createFamixParameterConcretization(fmxConcretization);
             
-        return fmxConcretisation;
+        return fmxConcretization;
     }
 
     /**
-     * Creates a Famix concretisation
-     * @param concretisation A FamixConcretisation
+     * Creates a Famix concretization
+     * @param concretization A FamixConcretization
      * @returns The Famix model of the ParameterConcrestisation
      */
-    public createFamixParameterConcretisation(concretisation: Famix.Concretisation): Famix.ParameterConcretisation | undefined{
-        const conClass = concretisation.concreteEntity;
-        const genClass = concretisation.genericEntity;
-        logger.debug(`Creating parameter concretisation between ${conClass.fullyQualifiedName} and ${genClass.fullyQualifiedName}`);
-        const parameterConcretisations = this.famixRep._getAllEntitiesWithType("ParameterConcretisation") as Set<Famix.ParameterConcretisation>;
+    public createFamixParameterConcretization(concretization: Famix.Concretization): Famix.ParameterConcretization | undefined{
+        const conClass = concretization.concreteEntity;
+        const genClass = concretization.genericEntity;
+        logger.debug(`Creating parameter concretization between ${conClass.fullyQualifiedName} and ${genClass.fullyQualifiedName}`);
+        const parameterConcretizations = this.famixRep._getAllEntitiesWithType("ParameterConcretization") as Set<Famix.ParameterConcretization>;
         const concreteParameters = conClass.concreteParameters;
         const genericParameters = genClass.genericParameters;
         
         const conClassTypeParametersIterator = concreteParameters.values();
         const genClassTypeParametersIterator = genericParameters.values();
-        let fmxParameterConcretisation : Famix.ParameterConcretisation | undefined = undefined;
+        let fmxParameterConcretization : Famix.ParameterConcretization | undefined = undefined;
 
         for (let i = 0; i < genericParameters.size; i++) {
             const conClassTypeParameter = conClassTypeParametersIterator.next().value as Famix.ParameterType;
             const genClassTypeParameter = genClassTypeParametersIterator.next().value as Famix.ParameterType;
-            let createParameterConcretisation : boolean = true;
+            let createParameterConcretization : boolean = true;
             if(conClassTypeParameter && genClassTypeParameter && conClassTypeParameter.name != genClassTypeParameter.name){
-                parameterConcretisations.forEach((param : Famix.ParameterConcretisation) => {
+                parameterConcretizations.forEach((param : Famix.ParameterConcretization) => {
                     if (conClassTypeParameter.name == param.concreteParameter.name && genClassTypeParameter.name == param.genericParameter.name) {
-                        createParameterConcretisation = false;
-                        fmxParameterConcretisation = param;
+                        createParameterConcretization = false;
+                        fmxParameterConcretization = param;
                     }
                 });
-                if (createParameterConcretisation) {
-                    fmxParameterConcretisation = new Famix.ParameterConcretisation();
-                    fmxParameterConcretisation.genericParameter = genClassTypeParameter;
-                    fmxParameterConcretisation.concreteParameter = conClassTypeParameter;
-                    fmxParameterConcretisation.addConcretisation(concretisation);
-                    // this.fmxElementObjectMap.set(fmxParameterConcretisation,null);
+                if (createParameterConcretization) {
+                    fmxParameterConcretization = new Famix.ParameterConcretization();
+                    fmxParameterConcretization.genericParameter = genClassTypeParameter;
+                    fmxParameterConcretization.concreteParameter = conClassTypeParameter;
+                    fmxParameterConcretization.addConcretization(concretization);
+                    // this.fmxElementObjectMap.set(fmxParameterConcretization,null);
                 } else {
-                    if (!fmxParameterConcretisation) {
-                        throw new Error(`fmxParameterConcretisation was undefined for concretisation with generic parameter ${genClassTypeParameter.name} and concrete parameter ${conClassTypeParameter.name}`);
+                    if (!fmxParameterConcretization) {
+                        throw new Error(`fmxParameterConcretization was undefined for concretization with generic parameter ${genClassTypeParameter.name} and concrete parameter ${conClassTypeParameter.name}`);
                     }
-                    fmxParameterConcretisation.addConcretisation(concretisation);
+                    fmxParameterConcretization.addConcretization(concretization);
                 }
-                this.famixRep.addElement(fmxParameterConcretisation);
+                this.famixRep.addElement(fmxParameterConcretization);
             }
         }
-        if (!fmxParameterConcretisation) {
-            logger.error(`fmxParameterConcretisation was undefined for concretisation with concrete entity ${conClass.fullyQualifiedName} and generic entity ${genClass.fullyQualifiedName}`);
+        if (!fmxParameterConcretization) {
+            logger.error(`fmxParameterConcretization was undefined for concretization with concrete entity ${conClass.fullyQualifiedName} and generic entity ${genClass.fullyQualifiedName}`);
         }
-        return fmxParameterConcretisation;
+        return fmxParameterConcretization;
 
     }
 
     /**
-     * Creates a Famix concretisation between two classes or two interfaces
+     * Creates a Famix concretization between two classes or two interfaces
      * @param element A class or an Interface
      */
-    public createFamixConcretisationClassOrInterfaceSpecialisation(element: ClassDeclaration | InterfaceDeclaration){
+    public createFamixConcretizationClassOrInterfaceSpecialisation(element: ClassDeclaration | InterfaceDeclaration){
         
         const superEntity = element.getExtends();
         let superEntityArray;
@@ -1739,17 +1739,17 @@ export class EntityDictionary {
                     const conParams = element.getHeritageClauses()[0].getTypeNodes()[0].getTypeArguments().map((param) => param.getText());
                     if (!Helpers.arraysAreEqual(conParams,genParams)) {
                         const conEntity = this.createOrGetFamixConcreteElement(genEntity,EntityDeclaration,args);
-                        const concretisations = this.famixRep._getAllEntitiesWithType("Concretisation") as Set<Famix.Concretisation>;
-                        let createConcretisation : boolean = true;
-                        concretisations.forEach((conc : Famix.Concretisation) => {
+                        const concretizations = this.famixRep._getAllEntitiesWithType("Concretization") as Set<Famix.Concretization>;
+                        let createConcretization : boolean = true;
+                        concretizations.forEach((conc : Famix.Concretization) => {
                             if (genEntity.fullyQualifiedName == conc.genericEntity.fullyQualifiedName && conc.concreteEntity.fullyQualifiedName == conEntity.fullyQualifiedName){
-                                createConcretisation = false;
+                                createConcretization = false;
                             }
                         });
             
-                        if (createConcretisation) {
+                        if (createConcretization) {
                             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                            const fmxConcretisation : Famix.Concretisation = this.createFamixConcretisation(conEntity,genEntity);
+                            const fmxConcretization : Famix.Concretization = this.createFamixConcretization(conEntity,genEntity);
                         }
                     }
                 }
@@ -1760,10 +1760,10 @@ export class EntityDictionary {
     
 
     /**
-     * Creates a Famix concretisation between a class and its instanciations
+     * Creates a Famix concretization between a class and its instanciations
      * @param cls A class
      */
-    public createFamixConcretisationGenericInstantiation(cls: ClassDeclaration){
+    public createFamixConcretizationGenericInstantiation(cls: ClassDeclaration){
        
         const isGeneric = cls.getTypeParameters().length > 0;
         if (isGeneric) {
@@ -1781,17 +1781,17 @@ export class EntityDictionary {
                     const genParams = cls.getTypeParameters().map((param) => param.getText());
                     if (!Helpers.arraysAreEqual(conParams,genParams)) {
                         const conEntity = this.createOrGetFamixConcreteElement(genEntity,cls,instance.getTypeArguments());
-                        const concretisations = this.famixRep._getAllEntitiesWithType("Concretisation") as Set<Famix.Concretisation>;
-                        let createConcretisation : boolean = true;
-                        concretisations.forEach((conc : Famix.Concretisation) => {
+                        const concretizations = this.famixRep._getAllEntitiesWithType("Concretization") as Set<Famix.Concretization>;
+                        let createConcretization : boolean = true;
+                        concretizations.forEach((conc : Famix.Concretization) => {
                             if (genEntity.fullyQualifiedName == conc.genericEntity.fullyQualifiedName && conc.concreteEntity.fullyQualifiedName == conEntity.fullyQualifiedName){
-                                createConcretisation = false;
+                                createConcretization = false;
                             }
                         });
             
-                        if (createConcretisation) {
+                        if (createConcretization) {
                             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                            const fmxConcretisation : Famix.Concretisation = this.createFamixConcretisation(conEntity,genEntity);
+                            const fmxConcretization : Famix.Concretization = this.createFamixConcretization(conEntity,genEntity);
                         }
                     }
                 }
@@ -1801,10 +1801,10 @@ export class EntityDictionary {
     }
 
     /**
-     * Creates a Famix concretisation between a class and its instanciations
+     * Creates a Famix concretization between a class and its instanciations
      * @param func A function
      */
-    public createFamixConcretisationFunctionInstantiation(element: FunctionDeclaration | MethodDeclaration){
+    public createFamixConcretizationFunctionInstantiation(element: FunctionDeclaration | MethodDeclaration){
         const isGeneric = element.getTypeParameters().length > 0;
         if (isGeneric) {
             const genParams = element.getTypeParameters().map(param => param.getText());
@@ -1830,17 +1830,17 @@ export class EntityDictionary {
                                     genElement = this.createOrGetFamixMethod(element, {}) as Famix.ParametricMethod;
                                 }
                                 const concElement = this.createOrGetFamixConcreteElement(genElement,element,args);
-                                const concretisations = this.famixRep._getAllEntitiesWithType("Concretisation") as Set<Famix.Concretisation>;
-                                let createConcretisation : boolean = true;
-                                concretisations.forEach((conc : Famix.Concretisation) => {
+                                const concretizations = this.famixRep._getAllEntitiesWithType("Concretization") as Set<Famix.Concretization>;
+                                let createConcretization : boolean = true;
+                                concretizations.forEach((conc : Famix.Concretization) => {
                                     if (genElement.fullyQualifiedName == conc.genericEntity.fullyQualifiedName && conc.concreteEntity.fullyQualifiedName == concElement.fullyQualifiedName){
-                                        createConcretisation = false;
+                                        createConcretization = false;
                                     }
                                 });
         
-                                if (createConcretisation) {
+                                if (createConcretization) {
                                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                                    const fmxConcretisation : Famix.Concretisation = this.createFamixConcretisation(concElement,genElement);
+                                    const fmxConcretization : Famix.Concretization = this.createFamixConcretization(concElement,genElement);
                                 }
                             }
                         }
@@ -1854,10 +1854,10 @@ export class EntityDictionary {
     }
 
     /**
-     * Creates a Famix concretisation between a class and an interface
+     * Creates a Famix concretization between a class and an interface
      * @param cls A class
      */
-    public createFamixConcretisationInterfaceClass(cls: ClassDeclaration){
+    public createFamixConcretizationInterfaceClass(cls: ClassDeclaration){
     
         const superInterfaces = cls.getImplements();
         superInterfaces.forEach(interfaceType => {
@@ -1870,17 +1870,17 @@ export class EntityDictionary {
                 if (!Helpers.arraysAreEqual(conParams,genParams)) {
                     const genInterface = this.createOrGetFamixInterface(interfaceDeclaration) as Famix.ParametricInterface;
                     const conInterface = this.createOrGetFamixConcreteElement(genInterface,interfaceDeclaration,args);
-                    const concretisations = this.famixRep._getAllEntitiesWithType("Concretisation") as Set<Famix.Concretisation>;
-                    let createConcretisation : boolean = true;
-                    concretisations.forEach((conc : Famix.Concretisation) => {
+                    const concretizations = this.famixRep._getAllEntitiesWithType("Concretization") as Set<Famix.Concretization>;
+                    let createConcretization : boolean = true;
+                    concretizations.forEach((conc : Famix.Concretization) => {
                         if (genInterface.fullyQualifiedName == conc.genericEntity.fullyQualifiedName && conc.concreteEntity.fullyQualifiedName == conInterface.fullyQualifiedName){
-                            createConcretisation = false;
+                            createConcretization = false;
                         }
                     });
             
-                    if (createConcretisation) {
+                    if (createConcretization) {
                         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                        const fmxConcretisation : Famix.Concretisation = this.createFamixConcretisation(conInterface,genInterface);
+                        const fmxConcretization : Famix.Concretization = this.createFamixConcretization(conInterface,genInterface);
                     }
                 }
             }
@@ -1888,11 +1888,11 @@ export class EntityDictionary {
     }
 
     /**
-     * Creates a Famix concretisation between an interface and a Type
+     * Creates a Famix concretization between an interface and a Type
      * @param element A variable or a function
      * @param inter An interface
      */
-    public createFamixConcretisationTypeInstanciation(element: InterfaceDeclaration | ClassDeclaration) {
+    public createFamixConcretizationTypeInstanciation(element: InterfaceDeclaration | ClassDeclaration) {
 
         const isGeneric = element.getTypeParameters().length > 0;
         if (isGeneric) {
@@ -1920,17 +1920,17 @@ export class EntityDictionary {
                                 genElement = this.createOrGetFamixInterface(element) as Famix.ParametricInterface;
                             }
                             const concElement = this.createOrGetFamixConcreteElement(genElement, element, args);
-                            const concretisations = this.famixRep._getAllEntitiesWithType("Concretisation") as Set<Famix.Concretisation>;
-                            let createConcretisation: boolean = true;
-                            concretisations.forEach((conc: Famix.Concretisation) => {
+                            const concretizations = this.famixRep._getAllEntitiesWithType("Concretization") as Set<Famix.Concretization>;
+                            let createConcretization: boolean = true;
+                            concretizations.forEach((conc: Famix.Concretization) => {
                                 if (genElement.fullyQualifiedName == conc.genericEntity.fullyQualifiedName && conc.concreteEntity.fullyQualifiedName == concElement.fullyQualifiedName) {
-                                    createConcretisation = false;
+                                    createConcretization = false;
                                 }
                             });
 
-                            if (createConcretisation) {
+                            if (createConcretization) {
                                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                                const fmxConcretisation: Famix.Concretisation = this.createFamixConcretisation(concElement, genElement);
+                                const fmxConcretization: Famix.Concretization = this.createFamixConcretization(concElement, genElement);
                             }
                         }
                         break;

@@ -2,11 +2,11 @@ import { Importer } from '../src/analyze';
 import { Method } from "../src/lib/famix/model/famix/method";
 import { Variable } from "../src/lib/famix/model/famix/variable";
 import { Invocation } from "../src/lib/famix/model/famix/invocation";
-import { project } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/invocationWithVariable.ts",
+project.createSourceFile("invocationWithVariable.ts",
 `class AAA {
     public method(): void {}
 }
@@ -14,6 +14,8 @@ project.createSourceFile("/invocationWithVariable.ts",
 const x1 = new AAA();
 x1.method();
 `);
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

@@ -1,12 +1,14 @@
 import { Importer } from '../src/analyze';
 import { ParametricClass, ParameterType } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/genericClass.ts",
+project.createSourceFile("genericClass.ts",
 `class MyClass<T> {}
 `);
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

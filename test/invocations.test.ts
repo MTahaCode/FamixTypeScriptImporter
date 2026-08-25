@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
 import { Invocation, Method } from "../src/lib/famix/model/famix";
-import { project } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/invocations.ts",
+project.createSourceFile("invocations.ts",
 `class Class1 {
     public returnHi(): string {
         return "Hi";
@@ -32,6 +32,8 @@ function a() {}
 })(1);
 
 `);
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

@@ -3,11 +3,11 @@ import { Function as FamixFunctionEntity } from "../src/lib/famix/model/famix/fu
 import { Comment } from '../src/lib/famix/model/famix/comment';
 import { IndexedFileAnchor } from '../src/lib/famix/model/famix/indexed_file_anchor';
 import { getCommentTextFromCommentViaAnchor } from './testUtils';
-import { project } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/functionWithVariables.ts",
+project.createSourceFile("functionWithVariables.ts",
 `function fct(): number {
     // comment 1
     let i: number /*comment 2*/, j: number; // comment 3
@@ -15,6 +15,8 @@ project.createSourceFile("/functionWithVariables.ts",
     return 0;
 }
 `);
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

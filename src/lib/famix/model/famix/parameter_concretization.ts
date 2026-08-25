@@ -1,23 +1,23 @@
 import { FamixJSONExporter } from "../../famix_JSON_exporter";
-import { Concretisation } from "./concretisation";
+import { Concretization } from "./concretization";
 import { Entity } from "./entity";
 import { ParameterType } from "./parameter_type";
 import { PrimitiveType } from "./primitive_type";
 
-export class ParameterConcretisation extends Entity {
+export class ParameterConcretization extends Entity {
 
     private _genericParameter!: ParameterType;
     private _concreteParameter!: PrimitiveType;
-    private _concretisations: Set<Concretisation> = new Set();
+    private _concretizations: Set<Concretization> = new Set();
 
-    public addConcretisation(concretisation: Concretisation): void {
-      if (!this._concretisations.has(concretisation)) {
-        this._concretisations.add(concretisation);
+    public addConcretization(concretization: Concretization): void {
+      if (!this._concretizations.has(concretization)) {
+        this._concretizations.add(concretization);
       }
     }
   
     public getJSON(): string {
-      const json: FamixJSONExporter = new FamixJSONExporter("ParameterConcretisation", this);
+      const json: FamixJSONExporter = new FamixJSONExporter("ParameterConcretization", this);
       this.addPropertiesToExporter(json);
       return json.getJSON();
     }
@@ -26,7 +26,7 @@ export class ParameterConcretisation extends Entity {
       super.addPropertiesToExporter(exporter);
       exporter.addProperty("genericEntity", this.genericParameter);
       exporter.addProperty("concreteEntity", this.concreteParameter);
-      exporter.addProperty("concretisations", this.concretisations);
+      exporter.addProperty("concretizations", this.concretizations);
     }
 
     get genericParameter() {
@@ -45,7 +45,7 @@ export class ParameterConcretisation extends Entity {
         this._concreteParameter = concreteParameter;
     }
 
-    get concretisations() {
-        return this._concretisations;
+    get concretizations() {
+        return this._concretizations;
     }
 }

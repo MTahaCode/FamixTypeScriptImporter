@@ -1,17 +1,19 @@
 import { Importer } from '../src/analyze';
 import { Comment } from '../src/lib/famix/model/famix/comment';
 import { getCommentTextFromCommentViaAnchor } from './testUtils';
-import { project } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/jsDoc.ts",
+project.createSourceFile("jsDoc.ts",
 `/**
  * Gets the name.
  * @param person - Person to get the name from.
  */
 function getName(person: string) {}
 `);
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

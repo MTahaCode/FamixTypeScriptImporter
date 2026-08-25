@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
-import { Concretisation, ParametricFunction, ParametricMethod } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { Concretization, ParametricFunction, ParametricMethod } from '../src/lib/famix/model/famix';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/src/concretisationFunctionInstantiation.ts",
+project.createSourceFile("src/concretizationFunctionInstantiation.ts",
 `
 interface CustomType {
     message: string;
@@ -27,9 +27,11 @@ const processor = new Processor();
 const resultString = processor.process<string>("Hello, world!");
 `);
 
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
+
 const fmxRep = importer.famixRepFromProject(project);
 
-describe('Tests for concretisation', () => {
+describe('Tests for concretization', () => {
 
     it("should parse generics", () => {
         expect(fmxRep).toBeTruthy();
@@ -59,18 +61,18 @@ describe('Tests for concretisation', () => {
         expect(numberOfCreateInstance).toBe(2); 
     });
 
-    it("should contain two concretisations", () => {
-        expect(fmxRep._getAllEntitiesWithType("Concretisation").size).toBe(2);
+    it("should contain two concretizations", () => {
+        expect(fmxRep._getAllEntitiesWithType("Concretization").size).toBe(2);
     });
 
-    const theInterface = fmxRep._getFamixInterface("{src/concretisationFunctionInstantiation.ts}.CustomType[InterfaceDeclaration]");
+    const theInterface = fmxRep._getFamixInterface("{src/concretizationFunctionInstantiation.ts}.CustomType[InterfaceDeclaration]");
 
     it.skip("The concrete Function should be createInstance with concreteParameter CustomType", () => {
-        const theConcretisations = fmxRep._getAllEntitiesWithType("Concretisation") as Set<Concretisation>;
-        const iterator = theConcretisations.values();
-        const firstElement = iterator.next().value as Concretisation;
+        const theConcretizations = fmxRep._getAllEntitiesWithType("Concretization") as Set<Concretization>;
+        const iterator = theConcretizations.values();
+        const firstElement = iterator.next().value as Concretization;
         expect(firstElement).toBeTruthy();
-        const secondElement = iterator.next().value as Concretisation;
+        const secondElement = iterator.next().value as Concretization;
         expect(secondElement.concreteEntity.name).toBe("createInstance");
         const concParameter = secondElement.concreteEntity.concreteParameters.values().next().value as ParametricFunction;
         expect(concParameter).toBeTruthy();
@@ -78,9 +80,9 @@ describe('Tests for concretisation', () => {
     });
 
     it.skip("The concrete Method should be process with concreteParameter string", () => {
-        const theConcretisations = fmxRep._getAllEntitiesWithType("Concretisation") as Set<Concretisation>;
-        const iterator = theConcretisations.values();
-        const firstElement = iterator.next().value as Concretisation;
+        const theConcretizations = fmxRep._getAllEntitiesWithType("Concretization") as Set<Concretization>;
+        const iterator = theConcretizations.values();
+        const firstElement = iterator.next().value as Concretization;
         expect(firstElement).toBeTruthy();
         expect(firstElement.concreteEntity.name).toBe("process");
         const concParameter = firstElement.concreteEntity.concreteParameters.values().next().value as ParametricMethod;
@@ -88,7 +90,7 @@ describe('Tests for concretisation', () => {
         expect(concParameter.name).toBe("string");
     });
 
-    it.skip("should contain two parameter concretisations", () => {
-        expect(fmxRep._getAllEntitiesWithType("ParameterConcretisation").size).toBe(2);
+    it.skip("should contain two parameter concretizations", () => {
+        expect(fmxRep._getAllEntitiesWithType("ParameterConcretization").size).toBe(2);
     });
 });

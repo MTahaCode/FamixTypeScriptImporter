@@ -1,15 +1,17 @@
 import { Importer } from '../src/analyze';
 import { ParametricInterface, ParameterType } from '../src/lib/famix/model/famix';
-import { project } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("/genericInterface.ts",
+project.createSourceFile("genericInterface.ts",
 `interface MyInterface<T> {
     myProperty;
     myMethod();
 }
 `);
+
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

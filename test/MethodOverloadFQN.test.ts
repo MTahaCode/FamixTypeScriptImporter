@@ -1,23 +1,11 @@
-import { Project, SyntaxKind } from 'ts-morph';
+import { SyntaxKind } from 'ts-morph';
 import { getFQN } from '../src/fqn';
 import { Importer } from '../src/analyze';
 import * as Famix from '../src/lib/famix/model/famix';
 import { FamixRepository } from '../src/lib/famix/famix_repository';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
-const project = new Project({
-    compilerOptions: {
-        baseUrl: ""
-    },
-    useInMemoryFileSystem: true,
-});
-
-describe('Method and Function Overload with Parameter FQN Generation', () => {
-    let sourceFile: ReturnType<Project['createSourceFile']>;
-    let importer: Importer;
-    let fmxRep: FamixRepository;
-
-    beforeAll(() => {
-        sourceFile = project.createSourceFile('/MethodOverloadFQN.ts', `
+const sourceFile = project.createSourceFile('/MethodOverloadFQN.ts', `
             declare namespace Namespace2 {
                 class Class1 {
                     static method1(param1: string): number;
@@ -61,9 +49,12 @@ describe('Method and Function Overload with Parameter FQN Generation', () => {
             interface Interface7 {}
         `);
 
-        importer = new Importer();
-        fmxRep = importer.famixRepFromProject(project);
-    });
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
+
+const importer = new Importer();
+const fmxRep = importer.famixRepFromProject(project);
+
+describe('Method and Function Overload with Parameter FQN Generation', () => {
 
     it('should parse the source file and generate Famix representation', () => {
         expect(fmxRep).toBeTruthy();
