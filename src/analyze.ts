@@ -69,7 +69,7 @@ export class Importer {
         processFunctions.processAccesses(accesses);
         processFunctions.processInvocations(methodsAndFunctionsWithId);
         processFunctions.processInheritances(classes, interfaces);
-        processFunctions.processConcretisations(classes, interfaces, methodsAndFunctionsWithId);
+        processFunctions.processConcretizations(classes, interfaces, methodsAndFunctionsWithId);
 
     }
 

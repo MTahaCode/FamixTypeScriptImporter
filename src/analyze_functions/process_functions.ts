@@ -1055,25 +1055,25 @@ function processNodeForInvocations(nodeReferencingInvocable: Identifier, invocab
  * @param classes An array of classes
  * @param interfaces An array of interfaces
  */
-export function processConcretisations(classes: ClassDeclaration[], interfaces: InterfaceDeclaration[], functions: Map<number, MethodDeclaration | ConstructorDeclaration | GetAccessorDeclaration | SetAccessorDeclaration | FunctionDeclaration | FunctionExpression | ArrowFunction>): void {
-    logger.info(`processConcretisations: Creating concretisations:`);
+export function processConcretizations(classes: ClassDeclaration[], interfaces: InterfaceDeclaration[], functions: Map<number, MethodDeclaration | ConstructorDeclaration | GetAccessorDeclaration | SetAccessorDeclaration | FunctionDeclaration | FunctionExpression | ArrowFunction>): void {
+    logger.info(`processConcretizations: Creating concretizations:`);
     classes.forEach(cls => {
-        logger.debug(`processConcretisations: Checking class concretisation for ${cls.getName()}`);
-        entityDictionary.createFamixConcretisationClassOrInterfaceSpecialisation(cls);
-        entityDictionary.createFamixConcretisationGenericInstantiation(cls);
-        entityDictionary.createFamixConcretisationInterfaceClass(cls);
-        entityDictionary.createFamixConcretisationTypeInstanciation(cls);
+        logger.debug(`processConcretizations: Checking class concretization for ${cls.getName()}`);
+        entityDictionary.createFamixConcretizationClassOrInterfaceSpecialisation(cls);
+        entityDictionary.createFamixConcretizationGenericInstantiation(cls);
+        entityDictionary.createFamixConcretizationInterfaceClass(cls);
+        entityDictionary.createFamixConcretizationTypeInstanciation(cls);
 
     });
     interfaces.forEach(inter => {
-        logger.debug(`processConcretisations: Checking interface concretisation for ${inter.getName()}`);
-        entityDictionary.createFamixConcretisationTypeInstanciation(inter);
-        entityDictionary.createFamixConcretisationClassOrInterfaceSpecialisation(inter);
+        logger.debug(`processConcretizations: Checking interface concretization for ${inter.getName()}`);
+        entityDictionary.createFamixConcretizationTypeInstanciation(inter);
+        entityDictionary.createFamixConcretizationClassOrInterfaceSpecialisation(inter);
     });
     functions.forEach(func => {
         if(func instanceof FunctionDeclaration || func instanceof MethodDeclaration ){
-            logger.debug(`processConcretisations: Checking Method concretisation`);
-            entityDictionary.createFamixConcretisationFunctionInstantiation(func);
+            logger.debug(`processConcretizations: Checking Method concretization`);
+            entityDictionary.createFamixConcretizationFunctionInstantiation(func);
         }
     });
 }

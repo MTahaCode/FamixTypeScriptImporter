@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
-import { Concretisation, ParametricInterface } from '../src/lib/famix/model/famix';
+import { Concretization, ParametricInterface } from '../src/lib/famix/model/famix';
 import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("concretisationTypeInstantiation.ts",
+project.createSourceFile("concretizationTypeInstantiation.ts",
 `
 interface InterfaceE<T> {
     (param: T): void;
@@ -24,7 +24,7 @@ exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 
-describe('Tests for concretisation', () => {
+describe('Tests for concretization', () => {
 
     it("should parse generics", () => {
         expect(fmxRep).toBeTruthy();
@@ -45,19 +45,19 @@ describe('Tests for concretisation', () => {
         expect(numberOfInterfaceE).toBe(2); 
     });
 
-    it("should contain 3 concretisations", () => {
-        expect(fmxRep._getAllEntitiesWithType("Concretisation").size).toBe(2);
+    it("should contain 3 concretizations", () => {
+        expect(fmxRep._getAllEntitiesWithType("Concretization").size).toBe(2);
     });
 
-    it.skip("should contain two parameter concretisation", () => {
-        expect(fmxRep._getAllEntitiesWithType("ParameterConcretisation").size).toBe(2);
+    it.skip("should contain two parameter concretization", () => {
+        expect(fmxRep._getAllEntitiesWithType("ParameterConcretization").size).toBe(2);
     });
 
 
     it.skip("The concrete Class should be MyClass with concreteParameter boolean", () => {
-        const theConcretisations = fmxRep._getAllEntitiesWithType("Concretisation") as Set<Concretisation>;
-        const iterator = theConcretisations.values();
-        const firstElement = iterator.next().value as Concretisation;
+        const theConcretizations = fmxRep._getAllEntitiesWithType("Concretization") as Set<Concretization>;
+        const iterator = theConcretizations.values();
+        const firstElement = iterator.next().value as Concretization;
         expect(firstElement.concreteEntity.name).toBe("MyClass");
         const concParameter = firstElement.concreteEntity.concreteParameters.values().next().value as ParametricInterface;
         expect(concParameter).toBeTruthy();
@@ -65,9 +65,9 @@ describe('Tests for concretisation', () => {
     });
 
     it.skip("The concrete Interface should be InterfaceE with concreteParameter number", () => {
-        const theConcretisations = fmxRep._getAllEntitiesWithType("Concretisation") as Set<Concretisation>;
-        const iterator = theConcretisations.values();
-        const secondElement = iterator.next().value as Concretisation;
+        const theConcretizations = fmxRep._getAllEntitiesWithType("Concretization") as Set<Concretization>;
+        const iterator = theConcretizations.values();
+        const secondElement = iterator.next().value as Concretization;
         expect(secondElement).toBeTruthy();
         expect(secondElement.concreteEntity.name).toBe("InterfaceE");
         const concParameter = secondElement.concreteEntity.concreteParameters.values().next().value as ParametricInterface;

@@ -1,10 +1,10 @@
 import { Importer } from '../src/analyze';
-import { Concretisation, ParameterConcretisation, ParametricInterface } from '../src/lib/famix/model/famix';
+import { Concretization, ParameterConcretization, ParametricInterface } from '../src/lib/famix/model/famix';
 import { project, exportProjectSourceFiles } from './testUtils';
 
 const importer = new Importer();
 
-project.createSourceFile("concretisationInterfaceSpecialization.ts",
+project.createSourceFile("concretizationInterfaceSpecialization.ts",
 `
 interface InterfaceA<T> {
 }
@@ -32,7 +32,7 @@ exportProjectSourceFiles(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 
-describe('Tests for concretisation', () => {
+describe('Tests for concretization', () => {
 
     it("should parse generics", () => {
         expect(fmxRep).toBeTruthy();
@@ -56,16 +56,16 @@ describe('Tests for concretisation', () => {
         expect(numberOfInterfaceE).toBe(3); 
     });
 
-    const theInterface = fmxRep._getFamixInterface("{concretisationInterfaceSpecialization.ts}.InterfaceA<T>[InterfaceDeclaration]");
+    const theInterface = fmxRep._getFamixInterface("{concretizationInterfaceSpecialization.ts}.InterfaceA<T>[InterfaceDeclaration]");
 
-    it("should contain 3 concretisations", () => {
-        expect(fmxRep._getAllEntitiesWithType("Concretisation").size).toBe(5);
+    it("should contain 3 concretizations", () => {
+        expect(fmxRep._getAllEntitiesWithType("Concretization").size).toBe(5);
     });
 
     it("The generic Class should be InterfaceA<T> with genericParameter T", () => {
-        const theConcretisations = fmxRep._getAllEntitiesWithType("Concretisation") as Set<Concretisation>;
-        const iterator = theConcretisations.values();
-        const firstElement = iterator.next().value as Concretisation;
+        const theConcretizations = fmxRep._getAllEntitiesWithType("Concretization") as Set<Concretization>;
+        const iterator = theConcretizations.values();
+        const firstElement = iterator.next().value as Concretization;
         expect(firstElement.genericEntity).toBe(theInterface);
         const T = firstElement.genericEntity.genericParameters.values().next().value as ParametricInterface;
         expect(T).toBeTruthy();
@@ -73,23 +73,23 @@ describe('Tests for concretisation', () => {
     });
 
     it.skip("The concrete Class should be InterfaceA<string> with concreteParameter string", () => {
-        const theConcretisations = fmxRep._getAllEntitiesWithType("Concretisation") as Set<Concretisation>;
-        const iterator = theConcretisations.values();
-        const firstElement = iterator.next().value as Concretisation;
+        const theConcretizations = fmxRep._getAllEntitiesWithType("Concretization") as Set<Concretization>;
+        const iterator = theConcretizations.values();
+        const firstElement = iterator.next().value as Concretization;
         expect(firstElement.concreteEntity.name).toBe("InterfaceA");
         const concParameter = firstElement.concreteEntity.concreteParameters.values().next().value as ParametricInterface;
         expect(concParameter).toBeTruthy();
         expect(concParameter.name).toBe("string");
     });
 
-    it.skip("should contain two parameter concretisation", () => {
-        expect(fmxRep._getAllEntitiesWithType("ParameterConcretisation").size).toBe(3);
+    it.skip("should contain two parameter concretization", () => {
+        expect(fmxRep._getAllEntitiesWithType("ParameterConcretization").size).toBe(3);
     });
 
-    it.skip("The first parameter concretisation should contain two concretisations", () => {
-        const theConcretisation = fmxRep._getAllEntitiesWithType("ParameterConcretisation") as Set<ParameterConcretisation>;
-        const iterator = theConcretisation.values();
-        const firstElement = iterator.next().value as ParameterConcretisation;
+    it.skip("The first parameter concretization should contain two concretizations", () => {
+        const theConcretization = fmxRep._getAllEntitiesWithType("ParameterConcretization") as Set<ParameterConcretization>;
+        const iterator = theConcretization.values();
+        const firstElement = iterator.next().value as ParameterConcretization;
         expect(firstElement).toBeTruthy();
         const genericParameter = firstElement.genericParameter;
         expect(genericParameter).toBeTruthy();
@@ -98,7 +98,7 @@ describe('Tests for concretisation', () => {
 
         expect(genericParameter.name).toBe("T");
         expect(concParameter.name).toBe("string");
-        expect(firstElement.concretisations.size).toBe(2);
+        expect(firstElement.concretizations.size).toBe(2);
     });
 
 });
