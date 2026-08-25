@@ -1,6 +1,6 @@
 import { Importer } from '../src/analyze';
 import { Interface } from '../src/lib/famix/model/famix';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -8,7 +8,7 @@ project.createSourceFile("interfaceInheritsInterface.ts",
 `interface MyInterface1 {}
 interface MyInterface2 extends MyInterface1 {}`);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

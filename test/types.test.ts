@@ -3,7 +3,7 @@ import { ParameterType } from '../src/lib/famix/model/famix/parameter_type';
 import { PrimitiveType } from '../src/lib/famix/model/famix/primitive_type';
 import { Type } from '../src/lib/famix/model/famix/type';
 import { IndexedFileAnchor } from '../src/lib/famix/model/famix';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 project.createSourceFile("types.ts",
@@ -27,7 +27,7 @@ class B<T> {};
 let bb: B<number>;
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

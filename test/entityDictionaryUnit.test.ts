@@ -1,6 +1,6 @@
 import { entityDictionary } from "../src/analyze";
 import * as Famix from "../src/lib/famix/model/famix";
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const sourceFile = project.createSourceFile("entityDictionaryUnit.ts",
 `
@@ -24,7 +24,7 @@ namespace MyNamespace {
 }
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 describe('EntityDictionary', () => {
 

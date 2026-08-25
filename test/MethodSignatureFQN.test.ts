@@ -3,7 +3,7 @@ import { getFQN } from '../src/fqn';
 import { Importer } from '../src/analyze';
 import { FamixRepository } from '../src/lib/famix/famix_repository';
 import * as Famix from "../src/lib/famix/model/famix";
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const sourceFile = project.createSourceFile('/SourceFile1.ts', `
             interface GenericType<T> {}
@@ -22,7 +22,7 @@ const sourceFile = project.createSourceFile('/SourceFile1.ts', `
             }
         `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const importer = new Importer();
 const fmxRep: FamixRepository = importer.famixRepFromProject(project);

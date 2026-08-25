@@ -3,7 +3,7 @@ import { getFQN } from '../src/fqn';
 import { Importer } from '../src/analyze';
 import * as Famix from '../src/lib/famix/model/famix';
 import { FamixRepository } from '../src/lib/famix/famix_repository';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const sourceFile = project.createSourceFile('/MethodOverloadFQN.ts', `
             declare namespace Namespace2 {
@@ -49,7 +49,7 @@ const sourceFile = project.createSourceFile('/MethodOverloadFQN.ts', `
             interface Interface7 {}
         `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const importer = new Importer();
 const fmxRep = importer.famixRepFromProject(project);

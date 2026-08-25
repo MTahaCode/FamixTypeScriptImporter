@@ -1,6 +1,6 @@
 import { SyntaxKind } from 'ts-morph';
 import { getFQN } from '../src/fqn';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const sourceFile = project.createSourceFile('/sampleFile.ts', `
       import { rest } from 'msw';
@@ -39,7 +39,7 @@ const sourceFile = project.createSourceFile('/sampleFile.ts', `
     });
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 describe('getFQN functionality', () => {
 

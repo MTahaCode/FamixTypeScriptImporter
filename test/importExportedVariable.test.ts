@@ -1,6 +1,6 @@
 import { Importer } from "../src/analyze";
 import { Variable, ImportClause } from "../src/lib/famix/model/famix";
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 //logger.settings.minLevel = 0; // all your messages are belong to us
@@ -15,7 +15,7 @@ project.createSourceFile("test_src/exporter2.ts",
 project.createSourceFile("test_src/importer.ts",
     `import { hasBigInt } from "./exporter2";`);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

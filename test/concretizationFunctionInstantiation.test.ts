@@ -1,6 +1,6 @@
 import { Importer } from '../src/analyze';
 import { Concretization, ParametricFunction, ParametricMethod } from '../src/lib/famix/model/famix';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -27,7 +27,7 @@ const processor = new Processor();
 const resultString = processor.process<string>("Hello, world!");
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

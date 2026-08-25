@@ -1,6 +1,6 @@
 import { Importer, logger } from '../src/analyze';
 import { Module } from '../src/lib/famix/model/famix/module';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -38,7 +38,7 @@ declare module "module-a" {
 }
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 logger.settings.minLevel = 0; // all your messages are belong to us
 

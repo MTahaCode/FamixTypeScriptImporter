@@ -3,7 +3,7 @@ import { Method } from "../src/lib/famix/model/famix/method";
 import { Variable } from "../src/lib/famix/model/famix/variable";
 import { Invocation } from "../src/lib/famix/model/famix/invocation";
 import { Class } from '../src/lib/famix/model/famix';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -16,7 +16,7 @@ const x = new AA();
 x.i<string>("ok");
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

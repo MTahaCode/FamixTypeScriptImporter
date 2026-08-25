@@ -3,7 +3,7 @@ import { getFQN } from '../src/fqn';
 import { Importer } from '../src/analyze'; 
 import * as Famix from '../src/lib/famix/model/famix'; 
 import { FamixRepository } from '../src/lib/famix/famix_repository';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const sourceFile = project.createSourceFile('/ObjectLiteralIndexSignatureFQN.ts', `
     const key1 = Symbol('key1');
@@ -36,7 +36,7 @@ const sourceFile = project.createSourceFile('/ObjectLiteralIndexSignatureFQN.ts'
             };
         `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 describe('Object Literal Index Signature FQN Generation', () => {
     let importer: Importer;

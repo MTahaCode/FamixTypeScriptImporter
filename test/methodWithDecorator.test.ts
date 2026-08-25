@@ -1,6 +1,6 @@
 import { Importer } from '../src/analyze';
 import { Decorator } from '../src/lib/famix/model/famix/decorator';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -18,7 +18,7 @@ class ExampleClass {
 }
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

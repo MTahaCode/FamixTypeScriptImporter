@@ -1,7 +1,7 @@
 import { Importer } from '../src/analyze';
 import { Project } from "ts-morph";
 import * as fs from 'fs';
-import { FamixPrefix, exportProjectSourceFiles } from './testUtils';
+import { FamixPrefix, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -48,7 +48,7 @@ function functionCyclomaticFour() {
 }
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 sourceFile.saveSync(); // save file to disk so metrics are calculated (this is slower)
 

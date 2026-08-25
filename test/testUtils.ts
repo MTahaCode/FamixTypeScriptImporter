@@ -27,7 +27,12 @@ export function inspectProjectSourceFiles(project: Project) {
     }
 }
 
-export function exportProjectSourceFiles(project: Project, testFilePath: string) {
+/**
+ * Exports the source files of a project to a specified directory.
+ * @param project - The project whose source files are to be exported.
+ * @param testFilePath - The path to the test file.
+ */
+export function exportProjectSourceFilesForEndtoEndPharoTests(project: Project, testFilePath: string) {
     const sourceFiles = project.getSourceFiles();
 
     const testName = path.basename(testFilePath, ".test.ts");

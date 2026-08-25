@@ -1,7 +1,7 @@
 import { Importer, config } from "../src/analyze";
 import { IndexedFileAnchor, Method, Module, ScriptEntity } from "../src/lib/famix/model/famix";
 import GraphemeSplitter from "grapheme-splitter";
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -21,7 +21,7 @@ export class A {
 // multi-code point emoji is handled differently in JavaScript (two chars) and Pharo (one character)
 project.createSourceFile("test_src/a-b.ts", `let c = "💷", d = 5;`);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 config.expectGraphemes = true;
 const fmxRep = importer.famixRepFromProject(project);

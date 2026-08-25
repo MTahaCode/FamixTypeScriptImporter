@@ -3,7 +3,7 @@ import { Function as FamixFunctionEntity } from "../src/lib/famix/model/famix/fu
 import { Comment } from '../src/lib/famix/model/famix/comment';
 import { IndexedFileAnchor } from '../src/lib/famix/model/famix/indexed_file_anchor';
 import { getCommentTextFromCommentViaAnchor } from './testUtils';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -16,7 +16,7 @@ project.createSourceFile("functionWithVariables.ts",
 }
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

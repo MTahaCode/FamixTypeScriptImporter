@@ -1,6 +1,6 @@
 import { Importer } from '../src/analyze';
 import { ScriptEntity, Class, PrimitiveType, Method, Parameter, Comment, Access, Variable, Function } from '../src/lib/famix/model/famix';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -20,7 +20,7 @@ class Class1 {
 function a() {}
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

@@ -1,6 +1,6 @@
 import { Importer } from "../src/analyze";
 import { Class, ImportClause, Module, NamedEntity, StructuralEntity } from "../src/lib/famix/model/famix";
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 //logger.settings.minLevel = 0; // all your messages are belong to us
@@ -48,7 +48,7 @@ project.createSourceFile("lazyRequireModuleCommonJS.ts",
         // Now use "_foo" as a variable instead of "foo".
     }`); // see https://basarat.gitbook.io/typescript/project/modules/external-modules#use-case-lazy-loading
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 const NUMBER_OF_MODULES = 10,

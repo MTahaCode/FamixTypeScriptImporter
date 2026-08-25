@@ -1,6 +1,6 @@
 import { Block, ReturnStatement, SyntaxKind } from 'ts-morph';
 import { getFQN } from '../src/fqn';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const sourceFile = project.createSourceFile('/sampleFile.ts', `
             const createClassA1 = () => {
@@ -17,7 +17,7 @@ const sourceFile = project.createSourceFile('/sampleFile.ts', `
             const instance2 = createClassA2();
         `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 describe('fullyQualifiedName functionality', () => {
 

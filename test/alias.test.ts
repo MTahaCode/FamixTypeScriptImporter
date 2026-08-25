@@ -2,7 +2,7 @@ import { Importer } from '../src/analyze';
 import { Alias, IndexedFileAnchor } from '../src/lib/famix/model/famix';
 import { Type } from '../src/lib/famix/model/famix';
 import { getTextFromAnchor } from './testUtils';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -14,7 +14,7 @@ project.createSourceFile("alias.ts",
 type Text = string | { text: string };
 type Callback = (data: string) => void;`);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const NUMBER_OF_ALIASES = 3;
 

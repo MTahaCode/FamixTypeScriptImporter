@@ -1,7 +1,7 @@
 import { Importer } from '../src/analyze';
 import { Class } from '../src/lib/famix/model/famix/class';
 import { Interface } from '../src/lib/famix/model/famix/interface';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -14,7 +14,7 @@ project.createSourceFile("classImplementsUndefinedInterface.ts",
 class MyClass implements MyInterface {}
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

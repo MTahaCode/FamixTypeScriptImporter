@@ -1,6 +1,6 @@
 import { Importer } from '../src/analyze';
 import { Concretization, ParameterConcretization, ParametricInterface } from '../src/lib/famix/model/famix';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -28,7 +28,7 @@ interface InterfaceH extends InterfaceE<number> , InterfaceA<number> {
 }
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

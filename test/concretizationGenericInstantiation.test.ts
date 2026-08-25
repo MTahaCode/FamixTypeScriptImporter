@@ -1,6 +1,6 @@
 import { Importer } from '../src/analyze';
 import { Concretization, ParametricClass } from '../src/lib/famix/model/famix';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -17,7 +17,7 @@ class ClassA<T> {
 const instance = new ClassA<number>(42);
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

@@ -4,7 +4,7 @@ import { Enum } from '../src/lib/famix/model/famix/enum';
 import { ScriptEntity } from '../src/lib/famix/model/famix/script_entity';
 import { IndexedFileAnchor } from '../src/lib/famix/model/famix/indexed_file_anchor';
 import { getCommentTextFromCommentViaAnchor } from './testUtils';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 // logger.settings.minLevel = 0;   // see all messages in testing
@@ -25,7 +25,7 @@ enum Weekday {
 const aDay: Weekday = Weekday.MONDAY;
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

@@ -1,6 +1,6 @@
 import { Importer } from '../src/analyze';
 import { Property } from '../src/lib/famix/model/famix/property';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 project.createSourceFile("propertyDefinedInConstructorSignature.ts",
@@ -8,7 +8,7 @@ project.createSourceFile("propertyDefinedInConstructorSignature.ts",
   constructor(private x: number, public readonly y: number, protected z: number) {}
 }`);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

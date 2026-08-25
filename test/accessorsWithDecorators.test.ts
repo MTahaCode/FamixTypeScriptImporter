@@ -3,7 +3,7 @@ import { Access } from '../src/lib/famix/model/famix/access';
 import { Decorator } from '../src/lib/famix/model/famix/decorator';
 import { Property } from '../src/lib/famix/model/famix/property';
 import { Accessor } from '../src/lib/famix/model/famix';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -45,7 +45,7 @@ class Point {
 }
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
     

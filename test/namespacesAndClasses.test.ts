@@ -1,7 +1,7 @@
 import { Importer } from '../src/analyze';
 import { Type } from '../src/lib/famix/model/famix/type';
 import { Class } from '../src/lib/famix/model/famix/class';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -18,7 +18,7 @@ namespace Nsp3 {
 }
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

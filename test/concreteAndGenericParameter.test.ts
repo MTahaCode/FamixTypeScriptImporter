@@ -1,6 +1,6 @@
 import { Importer, logger } from '../src/analyze';
 import { ParametricClass } from '../src/lib/famix/model/famix';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 logger.settings.minLevel = 0; // show all messages
@@ -37,7 +37,7 @@ interface JsonDecoratorOptions {
 }
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

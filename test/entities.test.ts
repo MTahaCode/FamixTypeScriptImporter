@@ -1,6 +1,6 @@
 import { Importer } from '../src/analyze';
 import { Method, Function as FamixFunctionEntity, Variable} from '../src/lib/famix/model/famix';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -44,7 +44,7 @@ class Foo {};
 var someVar = Foo;
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 // const theEntityClass = fmxRep._getFamixClass("EntityClass");

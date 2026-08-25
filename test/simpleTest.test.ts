@@ -1,13 +1,13 @@
 import { Importer } from '../src/analyze';
 import { ScriptEntity } from '../src/lib/famix/model/famix/script_entity';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 project.createSourceFile("simpleTest.ts",
 `console.log("Hello");
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

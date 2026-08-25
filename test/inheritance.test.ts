@@ -1,5 +1,5 @@
 import { Importer } from '../src/analyze';
-import { project, FamixPrefix, exportProjectSourceFiles } from './testUtils';
+import { project, FamixPrefix, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -10,7 +10,7 @@ interface Flyable {}
 class Bird extends Animal implements Flyable {}
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

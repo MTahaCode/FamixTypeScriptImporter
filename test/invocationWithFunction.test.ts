@@ -2,7 +2,7 @@ import { Importer } from '../src/analyze';
 import { Function as FamixFunctionEntity } from "../src/lib/famix/model/famix/function";
 import { Variable } from "../src/lib/famix/model/famix/variable";
 import { Invocation } from "../src/lib/famix/model/famix/invocation";
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -10,7 +10,7 @@ project.createSourceFile("invocationWithFunction.ts",
 `function func(): void {}
 const x1 = func();`);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

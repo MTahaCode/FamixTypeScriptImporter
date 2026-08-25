@@ -2,7 +2,7 @@ import { Importer } from '../src/analyze';
 import { Access } from '../src/lib/famix/model/famix/access';
 import { ScriptEntity } from '../src/lib/famix/model/famix/script_entity';
 import { Variable } from '../src/lib/famix/model/famix/variable';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 project.createSourceFile("simpleTest2.ts",
@@ -11,7 +11,7 @@ project.createSourceFile("simpleTest2.ts",
 console.log(a);
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 

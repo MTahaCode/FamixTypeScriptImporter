@@ -1,6 +1,6 @@
 import { Importer } from '../src/analyze';
 import { Class } from '../src/lib/famix/model/famix';
-import { project, exportProjectSourceFiles } from './testUtils';
+import { project, exportProjectSourceFilesForEndtoEndPharoTests } from './testUtils';
 
 const importer = new Importer();
 
@@ -10,7 +10,7 @@ project.createSourceFile("classExtendsUndefinedClass.ts",
 class MyClass extends BaseClass {}
 `);
 
-exportProjectSourceFiles(project, __filename);
+exportProjectSourceFilesForEndtoEndPharoTests(project, __filename);
 
 const fmxRep = importer.famixRepFromProject(project);
 
