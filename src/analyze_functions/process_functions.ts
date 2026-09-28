@@ -1056,6 +1056,9 @@ function processNodeForInvocations(nodeReferencingInvocable: Identifier, invocab
 
 /**
  * Builds a Famix model for the inheritances of the classes and interfaces of the source files
+ * 
+ * See https://modularmoose.org/_astro/uml-new-parametrics-mm.BTiU1iMv_1BpMeh.webp
+ * 
  * @param classes An array of classes
  * @param interfaces An array of interfaces
  */
